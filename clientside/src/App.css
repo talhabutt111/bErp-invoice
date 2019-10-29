@@ -1,0 +1,44 @@
+body {
+    font-family: "Lato", sans-serif;
+}
+
+
+.sidenav {
+    margin-right: 100px;
+    position: fixed;
+
+    top: 150px;
+
+    background: transparent;
+
+    padding: 50px;
+}
+
+.sidenav Link {
+    padding: 56px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #2196F3;
+    display: block;
+}
+
+.sidenav Link:hover {
+    color: #064579;
+}
+
+
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav Link {font-size: 18px;}
+}
+body {
+
+    background: url(aidan-hancock-UeqEo3EFBhE-unsplash.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+
+}

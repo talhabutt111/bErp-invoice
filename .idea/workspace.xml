@@ -34,7 +34,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1SQ3dms5lIMoFvjAopu3swSg12K" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../React mini Projects(practice)/musiclist.app" />
@@ -75,11 +79,22 @@
       <workItem from="1571977665407" duration="10152000" />
       <workItem from="1571988832606" duration="14129000" />
       <workItem from="1572238245763" duration="13977000" />
-      <workItem from="1572258055803" duration="31419000" />
+      <workItem from="1572258055803" duration="32019000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -18,8 +18,8 @@ class EditClient extends Component{
             company:''
         }
     }
-
     onChangePersonName(e) {
+
         this.setState({
             name: e.target.value
         });
@@ -54,7 +54,7 @@ class EditClient extends Component{
                     number: response.data.number,
                     company: response.data.company
                 });
-            })
+            },() =>{console.log(this.state.name,this.state.address)})
             .catch(function (error) {
                 console.log(error);
             })

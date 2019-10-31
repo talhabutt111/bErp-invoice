@@ -1,25 +1,25 @@
-import React,{ Component } from "react";
-import {MDBBtn,MDBCard,MDBCardBody, MDBInput,MDBIcon,} from 'mdbreact';
+import React, {Component} from "react";
+import {MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBIcon,} from 'mdbreact';
 import invoice from './devZone-Logo.png';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-const today=new Date();
-const mydate=today.toDateString();
-const id= Math.floor((Math.random()*200000)+1);
+
+const today = new Date();
+const mydate = today.toDateString();
+const id = Math.floor((Math.random() * 200000) + 1);
 const options = [
-    { value: 'seo', label: 'SEO' },
-    { value: 'web development', label: 'WEB DEVELOPMENT' },
-    { value: 'graphic designing', label: 'Graphics Designing' },
-    { value: 'mobile apps', label: 'Mobile Apps' }
+    {value: 'seo', label: 'SEO'},
+    {value: 'web development', label: 'WEB DEVELOPMENT'},
+    {value: 'graphic designing', label: 'Graphics Designing'},
+    {value: 'mobile apps', label: 'Mobile Apps'}
 ];
 const option1 = [
-    { value: 'no', label: 'none' },
-    { value: '2', label: '2' },
-    { value: '4', label: '4' },
-    { value: '6', label: '6' },
+    {value: 'no', label: 'none'},
+    {value: '2', label: '2'},
+    {value: '4', label: '4'},
+    {value: '6', label: '6'},
 
 ];
-
 
 
 class Generate extends Component {
@@ -34,22 +34,35 @@ class Generate extends Component {
             services: '',
             revisions: '',
             item: [],
+            updateditem: [],
             total: '',
-            discount:'',
-            clients:[],
+            discount: '',
+            clients: [],
             selectedClient: '',
-            tabrow:''
-
+            tabrow: ''
 
 
         }
     }
-updateRow=(e)=>{
-    console.log(e.target.innerHTML)
-        let tabrow=12345;
-        this.setState({tabrow:tabrow},console.log("state updated"))
 
-}
+    cleararray = () => {
+        this.setState({item: []});
+    }
+
+    /*
+updateRow=(e)=>{
+
+    let updatedItem = {
+        description: this.state.description,
+        qty: this.state.qty,
+        price: this.state.price
+    };
+
+    this.setState({item: [...this.state.updateditem,updatedItem]}, function () {
+        console.log(this.state.item);
+    });
+
+}*/
     componentDidMount() {
         fetch("http://localhost:5000/brp/clients")
             .then((response) => {
@@ -58,7 +71,9 @@ updateRow=(e)=>{
             .then(data => {
                 console.log(data);
 
-                this.setState({  clients:data },()=>{console.log(this.state.clients)});
+                this.setState({clients: data}, () => {
+                    console.log(this.state.clients)
+                });
             }).catch(error => {
             console.log(error);
         });
@@ -70,7 +85,7 @@ updateRow=(e)=>{
             .then((canvas) => {
                 const imgData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF();
-                pdf.addImage(imgData, 'PNG', 3, 18,200,200);
+                pdf.addImage(imgData, 'PNG', 3, 18, 200, 200);
                 // pdf.output('dataurlnewwindow');
                 pdf.save("invoice.pdf");
             })
@@ -78,18 +93,17 @@ updateRow=(e)=>{
     }
 
 
-
     calculateTotal = () => {
         console.log("total is");
         let total = 0;
-        let discount=0;
+        let discount = 0;
         this.state.item.forEach((items) => {
-            if (discount<=0){
+            if (discount <= 0) {
                 total += Number(items.price);
                 console.log(total);
-            }else {
+            } else {
                 total += Number(items.price);
-                total=total-discount;
+                total = total - discount;
                 console.log(total);
             }
 
@@ -103,13 +117,13 @@ updateRow=(e)=>{
         let {total} = this.state;
 
         return (
-            <div className="container-fluid" >
-                <div className="m-4" >
+            <div className="container-fluid">
+                <div className="m-4">
                     <div className="row">
                         <div className="col-sm-1"></div>
                         <div className="col-sm-11">
-                            <MDBCard id="capture" >
-                                <MDBCardBody >
+                            <MDBCard id="capture">
+                                <MDBCardBody>
                                     <h2 className="text-center"
                                         style={{backgroundColor: "#9ACD32", color: "white"}}>INVOICE</h2>
                                     <div className="row">
@@ -140,9 +154,11 @@ updateRow=(e)=>{
                                     <div className="row">
                                         <div className="col-sm-4">
                                             <br/>
-                                            <select value={this.state.selectedClient} className="browser-default custom-select"
+                                            <select value={this.state.selectedClient}
+                                                    className="browser-default custom-select"
                                                     onChange={(e) => this.setState({selectedClient: e.target.value})}>
-                                                {this.state.clients.map((cl) => <option key={cl.id} value={cl.cl_name}>{cl.cl_name}</option>)}
+                                                {this.state.clients.map((cl) => <option key={cl.id}
+                                                                                        value={cl.cl_name}>{cl.cl_name}</option>)}
                                             </select>
                                         </div>
                                         <div className="col-sm-4">
@@ -230,23 +246,31 @@ updateRow=(e)=>{
                                                 {this.state.item.map((item, index) => {
                                                     return (
                                                         <tr key={index}>
-                                                            <td suppressContentEditableWarning={true} contentEditable={true} onBlur={this.updateRow}>{item.description}</td>
-                                                            <td>{item.qty}</td>
-                                                            <td>{item.price}</td>
+                                                            <td suppressContentEditableWarning={true}
+                                                                contentEditable={true}>{item.description}</td>
+                                                            lL <td suppressContentEditableWarning={true}
+                                                                   contentEditable={true}>{item.qty}</td>
+                                                            <td suppressContentEditableWarning={true}
+                                                                contentEditable={true}>{item.price}</td>
+
                                                         </tr>
+
                                                     )
                                                 })}
                                                 </tbody>
+
                                             </table>
                                         </div>
 
                                         <div className="row">
                                             <div className="col-sm-9"><MDBBtn color="transparent"
                                                                               onClick={this.calculateTotal}>Calculated</MDBBtn>
+                                                <MDBBtn onClick={this.cleararray} color="transparent"><MDBIcon
+                                                    icon="broom"/></MDBBtn>
                                             </div>
                                             <div className="col-sm-2">
-                                                <input onChange={event => {this.setState({discount:event.target.value})}}  className="form-control" placeholder="Discount"/><p></p>
-                                                <textarea onChange={()=>{}} className="form-control" placeholder="Total" value={total}/>
+                                                RS <textarea onChange={() => {
+                                            }} className="form-control" placeholder="Total" value={total}/>
                                                 <p></p>
                                             </div>
                                         </div>
@@ -257,10 +281,10 @@ updateRow=(e)=>{
                                 </MDBCardBody>
                             </MDBCard>
 
-                            <MDBBtn  onClick={this.printDocument} color="info" className="pull-right"
+                            <MDBBtn onClick={this.printDocument} color="info" className="pull-right"
                                     size="md"><MDBIcon icon="file-pdf" size="lg"/> Convert to PDF</MDBBtn>
-                            <MDBBtn  onClick={this.printDocument} color="success"
-                                     size="md"><MDBIcon icon="save" size="lg"/> Save Record</MDBBtn>
+                            <MDBBtn color="success"
+                                    size="md"><MDBIcon icon="save" size="lg"/> Save Record</MDBBtn>
                         </div>
                     </div>
                 </div>
@@ -270,4 +294,5 @@ updateRow=(e)=>{
         )
     }
 }
-    export default Generate;
+
+export default Generate;

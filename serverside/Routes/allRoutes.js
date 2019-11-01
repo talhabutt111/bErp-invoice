@@ -45,7 +45,7 @@ router.post('/client',(req , res) => {
     }
 
     Client.create(clients)
-        .then((clients)  => res.json({ success: true, data: clients, message: 'Client created' }))
+        .then((clients)  => res.json({ success: true, data: clients, message: 'Client has been created successfully :)' }))
         .catch(err => console.log(err))
 });
 //Update an existing Client
@@ -63,7 +63,7 @@ router.put('/updateclient/:id',(req ,res) =>{
                {id: c_id}
                }
    )
-       .then((update) =>res.json({error:false,data:update,messsage:'client updated' }))
+       .then((update) =>res.json({error:false,data:update,message:'client has been updated successfully' }))
        .catch(err =>res.send(err))
 });
 //delete a single client
@@ -73,7 +73,7 @@ router.delete('/deleteclient/:id',(req, res) =>{
            where:{
                id:req.params.id
            }
-       }).then(res => res.json({ success: true, message: 'Client deleted successfully'}))
+       }).then(res => res.json({ success: true, message: 'Client has been deleted successfully'}))
        .catch(err => console.log(err));
 
 });
@@ -83,7 +83,7 @@ router.delete('/deleteclient/:id',(req, res) =>{
 router.get('/invoices',(req , res) => {
 
     Invoice.findAll({
-        attributes:['id','serial','c_name','c_address','date','c_number','services','items','quantity','total_amount','created_at']
+        attributes:['id','c_name','c_address','date','c_number','services','items','total_amount','slagme','created_at']
     })
         .then(invoices =>res.json({invoices:invoices}))
         .catch(err =>console.log(err));
@@ -109,19 +109,21 @@ router.get('/invoices/:id',(req , res) => {
 });
 //Create New Invoice
 router.post('/invoice',(req , res) => {
+    let mystring=(req.body.items).toString();
     const invoices={
+        slagme:req.body.invoice_id,
         c_name: req.body.name,
         c_address: req.body.address,
-        c_email: req.body.email,
-        c_number:req.body.number,
+         c_number:req.body.number,
+        date:req.body.date,
         services:req.body.services,
-        items:req.body.items,
-        quantity:req.body.quantity,
-        total_amount:req.body.total
+        items:mystring,
+        total_amount:req.body.total,
+
     };
 
     Invoice.create(invoices)
-        .then((invoices)  => res.json({ success: true, data: invoices, message: 'invoices created' }))
+        .then((invoices)  => res.json({ success: true, data: invoices, message: 'invoices has been created successfully' }))
         .catch(err => console.log(err))
 });
 
@@ -155,7 +157,7 @@ router.put('/updateinvoice/:id',(req ,res) =>{
                 {id: invoice_id}
         }
     )
-        .then((update) =>res.json({error:false,data:update,messsage:'invoice updated' }))
+        .then((update) =>res.json({error:false,data:update,messsage:'invoice updated successfully' }))
         .catch(err =>res.json(err))
 });
 

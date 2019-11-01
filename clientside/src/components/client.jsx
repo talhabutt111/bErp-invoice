@@ -75,9 +75,8 @@ class Client extends  Component {
                                     <th>Actions</th>
                                 </tr>
                             </MDBTableHead>
-                            <MDBTableBody>
-                                {this.tabRow()}
-                            </MDBTableBody>
+                            {this.tabRow()}
+
                         </MDBTable>
                     </MDBCardBody>
                 </MDBCard>

@@ -3,6 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="993e0459-6c50-4a7f-bd09-d3e9fcf4c300" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/components/Addclient.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/Addclient.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/components/client.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/client.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/components/clientdata.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/clientdata.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/components/generate.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/generate.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/components/invoices.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/invoices.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/components/invoicesdata.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/invoicesdata.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serverside/Routes/allRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverside/Routes/allRoutes.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +96,10 @@
       <workItem from="1572433121171" duration="4534000" />
       <workItem from="1572437700747" duration="10574000" />
       <workItem from="1572507647522" duration="6813000" />
-      <workItem from="1572519117243" duration="2798000" />
+      <workItem from="1572519117243" duration="8257000" />
+      <workItem from="1572584700683" duration="3156000" />
+      <workItem from="1572587905970" duration="11407000" />
+      <workItem from="1572606491816" duration="6277000" />
     </task>
     <servers />
   </component>

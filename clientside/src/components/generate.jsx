@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBIcon,} from 'mdbreact';
+import React, { Component } from "react";
+import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBIcon, } from 'mdbreact';
 import invoice from './devZone-Logo.png';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -8,16 +8,16 @@ const today = new Date();
 const mydate = today.toDateString();
 const id = Math.floor((Math.random() * 200000) + 1);
 const options = [
-    {value: 'seo', label: 'SEO'},
-    {value: 'web development', label: 'WEB DEVELOPMENT'},
-    {value: 'graphic designing', label: 'Graphics Designing'},
-    {value: 'mobile apps', label: 'Mobile Apps'}
+    { value: 'seo', label: 'SEO' },
+    { value: 'web development', label: 'WEB DEVELOPMENT' },
+    { value: 'graphic designing', label: 'Graphics Designing' },
+    { value: 'mobile apps', label: 'Mobile Apps' }
 ];
 const option1 = [
-    {value: 'no', label: 'none'},
-    {value: '2', label: '2'},
-    {value: '4', label: '4'},
-    {value: '6', label: '6'},
+    { value: 'no', label: 'none' },
+    { value: '2', label: '2' },
+    { value: '4', label: '4' },
+    { value: '6', label: '6' },
 
 ];
 
@@ -46,7 +46,7 @@ class Generate extends Component {
     }
 
     cleararray = () => {
-        this.setState({item: []});
+        this.setState({ item: [] });
     }
 
     /*
@@ -69,14 +69,14 @@ updateRow=(e)=>{
                 return response.json();
             })
             .then(data => {
-                console.log(data);
+                // console.log(data);
 
-                this.setState({clients: data}, () => {
-                    console.log(this.state.clients)
+                this.setState({ clients: data }, () => {
+                    // console.log(this.state.clients)
                 });
             }).catch(error => {
-            console.log(error);
-        });
+                console.log(error);
+            });
     }
 
     printDocument() {
@@ -89,32 +89,37 @@ updateRow=(e)=>{
                 // pdf.output('dataurlnewwindow');
                 pdf.save("invoice.pdf");
             })
-        ;
+            ;
     }
 
 
     calculateTotal = () => {
-        console.log("total is");
+        let table = document.getElementById('invoiceTable')
         let total = 0;
-        let discount = 0;
-        this.state.item.forEach((items) => {
-            if (discount <= 0) {
-                total += Number(items.price);
-                console.log(total);
-            } else {
-                total += Number(items.price);
-                total = total - discount;
-                console.log(total);
-            }
+        for (let index = 1; index < table.rows.length; index++) {
+            total += Number(table.rows[index].cells[2].innerHTML)
+        }
+        // console.log("total is");
+        // let total = 0;
+        // let discount = 0;
+        // this.state.item.forEach((items) => {
+        //     if (discount <= 0) {
+        //         total += Number(items.price);
+        //         console.log(total);
+        //     } else {
+        //         total += Number(items.price);
+        //         total = total - discount;
+        //         console.log(total);
+        //     }
 
 
-        })
-        this.setState({total: total})
+        // })
+        this.setState({ total: total })
     }
 
 
     render() {
-        let {total} = this.state;
+        let { total } = this.state;
 
         return (
             <div className="container-fluid">
@@ -125,16 +130,16 @@ updateRow=(e)=>{
                             <MDBCard id="capture">
                                 <MDBCardBody>
                                     <h2 className="text-center"
-                                        style={{backgroundColor: "#9ACD32", color: "white"}}>INVOICE</h2>
+                                        style={{ backgroundColor: "#9ACD32", color: "white" }}>INVOICE</h2>
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <img src={invoice} width="220px" height="auto"/> <br/>
+                                            <img src={invoice} width="220px" height="auto" /> <br />
                                             <MDBInput label="Creation Date" value={today} onChange={e => {
-                                                this.setState({creation: today})
-                                            }}/>
+                                                this.setState({ creation: today })
+                                            }} />
                                             <MDBInput label="Invoice-id" value={id} onChange={e => {
-                                                this.setState({invoiceid: id})
-                                            }}/>
+                                                this.setState({ invoiceid: id })
+                                            }} />
                                         </div>
                                         <div className="col-sm-6"></div>
                                         <div className="col-sm-3 pull-right">
@@ -142,10 +147,10 @@ updateRow=(e)=>{
                                                 <MDBCardBody>
                                                     <strong>
                                                         DevZone Solutions
-                                                    </strong><br/>
-                                                    Mobile: +92 306 5619198<br/>
-                                                    Email:contact@devzone.com.pk<br/>
-                                                    Address: 42-5-A2 Township, Lahore, Pakistan<br/>
+                                                    </strong><br />
+                                                    Mobile: +92 306 5619198<br />
+                                                    Email:contact@devzone.com.pk<br />
+                                                    Address: 42-5-A2 Township, Lahore, Pakistan<br />
                                                 </MDBCardBody>
                                             </MDBCard>
 
@@ -153,34 +158,34 @@ updateRow=(e)=>{
                                     </div>
                                     <div className="row">
                                         <div className="col-sm-4">
-                                            <br/>
+                                            <br />
                                             <select value={this.state.selectedClient}
-                                                    className="browser-default custom-select"
-                                                    onChange={(e) => this.setState({selectedClient: e.target.value})}>
+                                                className="browser-default custom-select"
+                                                onChange={(e) => this.setState({ selectedClient: e.target.value })}>
                                                 {this.state.clients.map((cl) => <option key={cl.id}
-                                                                                        value={cl.cl_name}>{cl.cl_name}</option>)}
+                                                    value={cl.cl_name}>{cl.cl_name}</option>)}
                                             </select>
                                         </div>
                                         <div className="col-sm-4">
                                             <MDBInput label="Address" onChange={e => {
-                                                this.setState({address: e.target.value})
-                                            }}/>
+                                                this.setState({ address: e.target.value })
+                                            }} />
                                         </div>
                                         <div className="col-sm-4">
                                             <MDBInput label="Phone no" onChange={e => {
-                                                this.setState({phone: e.target.value})
-                                            }}/>
+                                                this.setState({ phone: e.target.value })
+                                            }} />
                                         </div>
                                     </div>
                                     <div className="container-fluid"
-                                         style={{borderStyle: "groove", borderRadius: "10px"}}>
+                                        style={{ borderStyle: "groove", borderRadius: "10px" }}>
                                         <strong className="text-center">Select services</strong>
                                         <p></p>
                                         <div className="row">
                                             <div className="col-sm-6">
                                                 Services
                                                 <select className="form-control" onChange={event => {
-                                                    this.setState({services: event.target.value})
+                                                    this.setState({ services: event.target.value })
                                                 }}>
                                                     <option value="seo">SEO</option>
                                                     <option value="web development">Web Development</option>
@@ -191,7 +196,7 @@ updateRow=(e)=>{
                                             <div className="col-sm-3">
                                                 Revisions
                                                 <select className="form-control" onChange={event => {
-                                                    this.setState({revisions: event.target.value})
+                                                    this.setState({ revisions: event.target.value })
                                                 }}>
                                                     <option value="none">none</option>
                                                     <option value="2">2</option>
@@ -202,19 +207,19 @@ updateRow=(e)=>{
                                         </div>
                                         <div className="row">
                                             <div className="col-sm-4">
-                                                <MDBInput label="Item-descrption" onChange={e => {
-                                                    this.setState({description: e.target.value})
-                                                }}/>
+                                                <MDBInput label="Item-descrption" value={this.state.description} onChange={e => {
+                                                    this.setState({ description: e.target.value })
+                                                }} />
                                             </div>
                                             <div className="col-sm-2">
                                                 <MDBInput label="Qty" onChange={e => {
-                                                    this.setState({qty: e.target.value})
-                                                }}/>
+                                                    this.setState({ qty: e.target.value })
+                                                }} />
                                             </div>
                                             <div className="col-sm-3">
                                                 <MDBInput label="Price" onChange={e => {
-                                                    this.setState({price: e.target.value})
-                                                }}/>
+                                                    this.setState({ price: e.target.value })
+                                                }} />
                                             </div>
                                             <div className="col-sm-5">
                                                 <button onClick={() => {
@@ -223,40 +228,42 @@ updateRow=(e)=>{
                                                         qty: this.state.qty,
                                                         price: this.state.price
                                                     };
-                                                    this.setState({item: [...this.state.item, newitem]}, function () {
-                                                        console.log(this.state.item);
+                                                    this.setState({
+                                                        item: [...this.state.item, newitem],
+                                                        description: '', qty: '', price: ''
+                                                    }, function () {
+                                                        // console.log(this.state.item);
                                                     });
 
-                                                }} color="transparent"><MDBIcon icon="plus"/></button>
+                                                }} color="transparent"><MDBIcon icon="plus" /></button>
                                             </div>
                                         </div>
-                                        <br/>
+                                        <br />
 
 
                                         <div className="col-md-8">
-                                            <table className="table table-bordered">
+                                            <table id='invoiceTable' className="table table-bordered">
                                                 <thead>
-                                                <tr>
-                                                    <th>Description</th>
-                                                    <th>qunatity</th>
-                                                    <th>price</th>
-                                                </tr>
+                                                    <tr>
+                                                        <th>Description</th>
+                                                        <th>qunatity</th>
+                                                        <th>price</th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
-                                                {this.state.item.map((item, index) => {
-                                                    return (
-                                                        <tr key={index}>
-                                                            <td suppressContentEditableWarning={true}
-                                                                contentEditable={true}>{item.description}</td>
-                                                            lL <td suppressContentEditableWarning={true}
-                                                                   contentEditable={true}>{item.qty}</td>
-                                                            <td suppressContentEditableWarning={true}
-                                                                contentEditable={true}>{item.price}</td>
+                                                    {this.state.item.map((item, index) => {
+                                                        return (
+                                                            <tr key={index}>
+                                                                <td suppressContentEditableWarning={true}
+                                                                    contentEditable={true}>{item.description}</td>
+                                                                <td suppressContentEditableWarning={true}
+                                                                    contentEditable={true}>{item.qty}</td>
+                                                                <td suppressContentEditableWarning={true}
+                                                                    contentEditable={true}>{item.price}</td>
+                                                            </tr>
 
-                                                        </tr>
-
-                                                    )
-                                                })}
+                                                        )
+                                                    })}
                                                 </tbody>
 
                                             </table>
@@ -264,13 +271,13 @@ updateRow=(e)=>{
 
                                         <div className="row">
                                             <div className="col-sm-9"><MDBBtn color="transparent"
-                                                                              onClick={this.calculateTotal}>Calculated</MDBBtn>
+                                                onClick={this.calculateTotal}>Calculated</MDBBtn>
                                                 <MDBBtn onClick={this.cleararray} color="transparent"><MDBIcon
-                                                    icon="broom"/></MDBBtn>
+                                                    icon="broom" /></MDBBtn>
                                             </div>
                                             <div className="col-sm-2">
                                                 RS <textarea onChange={() => {
-                                            }} className="form-control" placeholder="Total" value={total}/>
+                                                }} className="form-control" placeholder="Total" value={total} />
                                                 <p></p>
                                             </div>
                                         </div>
@@ -282,9 +289,9 @@ updateRow=(e)=>{
                             </MDBCard>
 
                             <MDBBtn onClick={this.printDocument} color="info" className="pull-right"
-                                    size="md"><MDBIcon icon="file-pdf" size="lg"/> Convert to PDF</MDBBtn>
+                                size="md"><MDBIcon icon="file-pdf" size="lg" /> Convert to PDF</MDBBtn>
                             <MDBBtn color="success"
-                                    size="md"><MDBIcon icon="save" size="lg"/> Save Record</MDBBtn>
+                                size="md"><MDBIcon icon="save" size="lg" /> Save Record</MDBBtn>
                         </div>
                     </div>
                 </div>

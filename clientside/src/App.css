@@ -6,11 +6,8 @@ body {
 .sidenav {
     margin-right: 100px;
     position: fixed;
-
     top: 150px;
-
     background: transparent;
-
     padding: 50px;
 }
 

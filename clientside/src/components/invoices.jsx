@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {MDBCard, MDBCardBody, MDBCardHeader, MDBIcon, MDBTable, MDBTableBody, MDBTableHead} from "mdbreact";
+import React, { Component } from "react";
+import { MDBCard, MDBCardBody, MDBCardHeader, MDBIcon, MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import axios from 'axios';
 import Inovicesdata from "./invoicesdata";
 
@@ -9,16 +9,15 @@ class Invoices extends Component {
         this.state = {
             invoices: []
         }
-        this.tabRow = this.tabRow.bind(this)
     }
 
     componentDidMount() {
         axios.get('http://localhost:5000/brp/invoices')
-            .then(response => {
-                console.log(response)
+            .then(res => {
+                console.log(res.data)
                 // let persons = this.state.invoices.slice();
                 // persons.push(response.data)
-                this.setState({invoices: response.data});
+                this.setState({ invoices: res.data.data });
             })
             .catch((error) => {
                 console.log(error);
@@ -26,22 +25,14 @@ class Invoices extends Component {
     }
 
     tabRow = () => {
-        console.log(this.state.invoices)
-        let cc = this
-        let Ac = this.state.invoices
-        console.log(Ac)
-        // this.state.invoices.map(invoice=> console.log(invoice))
-        // this.state.invoices.forEach(invoice=> console.log(invoice))
-        // return this.state.invoices.map(function (object, i) {
-        //     console.log(cc.state.invoices)
-        //     return <Inovicesdata obj={object} key={Math.random()}/>;
-        // });
-
+        return this.state.invoices.map(function (object, i) {
+            return <Inovicesdata obj={object} key={Math.random()} />;
+        });
     }
 
     render() {
-        console.log(this.state.invoices)
-        this.state.invoices.forEach(invoice=>console.log(invoice))
+        // console.log(this.state.invoices)
+        // this.state.invoices.forEach(invoice=>console.log(invoice))
         return (
 
             <div className="container">
@@ -50,8 +41,8 @@ class Invoices extends Component {
                         <div className="col-sm-1"></div>
                         <div className="col-sm-11">
                             <MDBCard>
-                                <MDBCardHeader tag="h3" style={{backgroundColor: "#9ACD32", color: "white"}}
-                                               className="text-center font-weight-bold text-uppercase py-4">
+                                <MDBCardHeader tag="h3" style={{ backgroundColor: "#9ACD32", color: "white" }}
+                                    className="text-center font-weight-bold text-uppercase py-4">
                                     Invoices Record
                                 </MDBCardHeader>
 

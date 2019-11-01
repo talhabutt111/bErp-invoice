@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import { MDBCard, MDBCardBody, MDBCardHeader, MDBIcon, MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import axios from 'axios';
@@ -42,7 +43,7 @@ class Invoices extends Component {
                         <div className="col-sm-11">
                             <MDBCard>
                                 <MDBCardHeader tag="h3" style={{ backgroundColor: "#9ACD32", color: "white" }}
-                                    className="text-center font-weight-bold text-uppercase py-4">
+                                               className="text-center font-weight-bold text-uppercase py-4">
                                     Invoices Record
                                 </MDBCardHeader>
 

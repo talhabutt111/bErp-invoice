@@ -16,9 +16,7 @@ class Invoices extends Component {
         axios.get('http://localhost:5000/brp/invoices')
             .then(res => {
                 console.log(res.data)
-                // let persons = this.state.invoices.slice();
-                // persons.push(response.data)
-                this.setState({ invoices: res.data.data });
+                this.setState({ invoices: res.data.invoices });
             })
             .catch((error) => {
                 console.log(error);
@@ -43,7 +41,7 @@ class Invoices extends Component {
                         <div className="col-sm-11">
                             <MDBCard>
                                 <MDBCardHeader tag="h3" style={{ backgroundColor: "#9ACD32", color: "white" }}
-                                               className="text-center font-weight-bold text-uppercase py-4">
+                                    className="text-center font-weight-bold text-uppercase py-4">
                                     Invoices Record
                                 </MDBCardHeader>
 

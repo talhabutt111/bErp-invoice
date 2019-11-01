@@ -43,7 +43,7 @@ class Client extends  Component {
      }
   */
     render() {
-       console.log(this.state);
+    //    console.log(this.state);
         return (
 <div className="container">
     <div className="m-4">
@@ -64,7 +64,7 @@ class Client extends  Component {
                 </Switch>
 
 
-                        <MDBTable striped bordered hover responsive  >
+                        <MDBTable id='clientsTable' striped bordered hover responsive  >
                             <MDBTableHead>
                                 <tr>
                                     <th>Name</th>

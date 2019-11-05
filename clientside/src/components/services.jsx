@@ -55,7 +55,7 @@ class Services extends Component{
                     </div>
                 </div><br/>
                     <div className="row">
-                        <div className="col-sm-1"></div>
+
                         <div className="col-sm-4">
                             <MDBCard style={{ height: "350px" }}>
                                 <MDBCardImage className="img-fluid" src={grap} waves />

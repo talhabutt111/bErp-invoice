@@ -75,6 +75,7 @@ class EditClient extends Component {
             .then(res => console.log(res.data));
 
         this.props.history.push('/client');
+        window.location.reload()
     }
 
 

@@ -6,35 +6,49 @@ class Clientdata extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: ''
+            message: '',
+            activePage: 1
         }
         this.delete = this.delete.bind(this);
 
         // console.log("clients", this.props);
     }
     delete(e) {
-        let el = e.target
-        let row = el.closest('tr')
+        let el = e.target;
+        let row = el.closest('tr');
         var i = row.rowIndex;
         // console.log(i);
 
         axios.delete('http://localhost:5000/brp/deleteclient/' + this.props.obj.id)
             .then(res => {
-                console.log(res);
-
-                console.log('ok');
-                this.setState({ message: res.message })
+                // console.log(res);
+                // console.log('ok');
+                this.setState({ message: res.data.message })
+                console.log(res)
                 document.getElementById('clientsTable').deleteRow(i)
                 // window.location.reload()
             })
-            // .then(() => console.log(this.state.message))
+            .then(() => console.log(this.state.message))
             .catch(err => console.log(err));
+    }
+    alert=() =>{
+        return(
+            <p><strong>{this.state.message}</strong></p>
+        )
+    };
+    handlePageChange (pageNumber) {
+        console.log(`active page is ${pageNumber}`);
+        this.setState({activePage: pageNumber});
     }
     render() {
         // console.log(this.props.obj.id);
         
         return (
+
             <MDBTableBody>
+                {
+                    <strong> {this.state.message}</strong>
+                }
                 <tr>
                     <td> {this.props.obj.cl_name}</td>
                     <td>{this.props.obj.address}</td>
@@ -53,7 +67,9 @@ class Clientdata extends Component {
                         </MDBBtn>
                     </td>
                 </tr>
+
             </MDBTableBody>
+
         )
     }
 }

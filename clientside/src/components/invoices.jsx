@@ -15,8 +15,9 @@ class Invoices extends Component {
     componentDidMount() {
         axios.get('http://localhost:5000/brp/invoices')
             .then(res => {
-                console.log(res.data)
-                this.setState({ invoices: res.data.invoices });
+                // console.log(res.invoices)
+                this.setState({ invoices: res.data.invoices },() =>{
+                    console.log('invoices are',this.state.invoices)});
             })
             .catch((error) => {
                 console.log(error);
@@ -46,7 +47,7 @@ class Invoices extends Component {
                                 </MDBCardHeader>
 
                                 <MDBCardBody>
-                                    <MDBTable striped bordered hover responsive>
+                                    <MDBTable id='invoicesTable' striped bordered hover responsive>
                                         <MDBTableHead>
                                             <tr>
                                                 <th>Invoice_no</th>
@@ -55,16 +56,13 @@ class Invoices extends Component {
                                                 <th>C-Phone no</th>
                                                 <th>invoice_date</th>
                                                 <th>Services</th>
-                                                <th>Items</th>
-                                                <th>Quantity</th>
                                                 <th>Total Amount</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </MDBTableHead>
-                                        <MDBTableBody>
+
                                             {this.tabRow()}
-                                            {/*{console.log('okkkkk')}*/}
-                                        </MDBTableBody>
+
                                     </MDBTable>
                                 </MDBCardBody>
                             </MDBCard>

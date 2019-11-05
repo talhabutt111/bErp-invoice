@@ -13,6 +13,8 @@ import Generate from "./components/generate";
 import { MDBIcon } from "mdbreact";
 import addClient from "./components/Addclient";
 import editClient from "./components/editClient";
+import editInvoice from "./components/editInvoice";
+import ItemsDetail from "./components/items_details";
 
 
 function App() {
@@ -46,6 +48,8 @@ function App() {
         <Route path="/services" component={Services} />
         <Route path="/company" component={Company} />
         <Route path='/edit/:id' component={editClient} />
+        <Route path='/editinvoice/:id' component={editInvoice} />
+        <Route path='/itemsdetail/:slagme' component={ItemsDetail} />
         <Route path="/addClient" component={addClient} />
       </Switch>
 

@@ -1,6 +1,7 @@
 import React,{ Component  } from 'react';
 import logo from './green-plus-sign-icon-16.jpg';
 import axios from 'axios';
+import Pagination from "react-js-pagination";
 import Addclient from "./Addclient";
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import { MDBCard, MDBCardHeader, MDBCardBody,MDBTable, MDBTableBody, MDBTableHead , MDBBtn,MDBIcon} from "mdbreact";
@@ -9,7 +10,8 @@ class Client extends  Component {
    constructor(props){
        super(props);
        this.state={
-           clients:[]
+           clients:[],
+           activePage: 15
        }
    }
     //using axiosApi
@@ -42,8 +44,13 @@ class Client extends  Component {
          })
      }
   */
+    handlePageChange= (pageNumber)=> {
+        console.log(`active page is ${pageNumber}`);
+        this.setState({activePage: pageNumber});
+    }
     render() {
     //    console.log(this.state);
+
         return (
 <div className="container">
     <div className="m-4">
@@ -64,7 +71,7 @@ class Client extends  Component {
                 </Switch>
 
 
-                        <MDBTable id='clientsTable' striped bordered hover responsive  >
+                        <MDBTable id='clientsTable' striped bordered hover responsive >
                             <MDBTableHead>
                                 <tr>
                                     <th>Name</th>
@@ -78,6 +85,7 @@ class Client extends  Component {
                             {this.tabRow()}
 
                         </MDBTable>
+
                     </MDBCardBody>
                 </MDBCard>
 

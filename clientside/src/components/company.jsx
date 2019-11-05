@@ -11,7 +11,7 @@ class Company extends Component{
                     <MDBCard >
                         <MDBCardHeader tag="h3" style={{ backgroundColor: "#9ACD32", color: "white" }}
                                        className="text-center font-weight-bold text-uppercase py-4">
-                            Compnay Detail
+                            Company Detail
                         </MDBCardHeader>
                         <MDBCardBody>
                         <MDBRow>

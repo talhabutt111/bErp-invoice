@@ -27,7 +27,7 @@ function App() {
             caret
             outline
             color="success"
-            size="lg"
+            size="md"
           >
             Clients
           </MDBDropdownToggle>

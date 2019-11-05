@@ -13,7 +13,7 @@ class Services extends Component{
             <div className="container">
                 <div className="m-4">
                 <div className="row">
-                    <div className="col-sm-4">
+                    <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                         <MDBCard style={{ height: "350px" }}>
                             <MDBCardImage className="img-fluid" src={seo} waves />
                             <MDBCardBody>
@@ -27,7 +27,7 @@ class Services extends Component{
                         </MDBCard>
                     </div>
 
-                    <div className="col-sm-4">
+                    <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                         <MDBCard style={{ height: "350px" }}>
                             <MDBCardImage className="img-fluid" src={web} waves />
                             <MDBCardBody>
@@ -40,7 +40,7 @@ class Services extends Component{
                             </MDBCardBody>
                         </MDBCard>
                     </div>
-                    <div className="col-sm-4">
+                    <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                         <MDBCard style={{ height: "350px" }}>
                             <MDBCardImage className="img-fluid" src={mon} waves />
                             <MDBCardBody>
@@ -56,7 +56,7 @@ class Services extends Component{
                 </div><br/>
                     <div className="row">
 
-                        <div className="col-sm-4">
+                        <div className="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <MDBCard style={{ height: "350px" }}>
                                 <MDBCardImage className="img-fluid" src={grap} waves />
                                 <MDBCardBody>
@@ -69,8 +69,8 @@ class Services extends Component{
                                 </MDBCardBody>
                             </MDBCard>
                         </div>
-                        <div className="col-sm-1"></div>
-                        <div className="col-sm-4">
+
+                        <div className="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <MDBCard style={{ height: "350px" }}>
                                 <MDBCardImage className="img-fluid" src={digit} waves />
                                 <MDBCardBody>

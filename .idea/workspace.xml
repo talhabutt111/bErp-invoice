@@ -2,41 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="993e0459-6c50-4a7f-bd09-d3e9fcf4c300" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/build.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/devServer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/dist/Page.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/dist/Pagination.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/src/components/Page-test.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/src/components/Page.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/src/components/Pagination-test.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/src/components/Pagination.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/src/example/App.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/src/example/App.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/src/example/dist/bundle.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/src/example/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/test-setup.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/webpack.config.dev.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/node_modules/react-js-pagination/webpack.config.prod.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/src/components/editInvoice.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/src/components/items_details.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/serverside/models/itemData.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clientside/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/Addclient.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/Addclient.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/client.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/client.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/clientdata.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/clientdata.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/company.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/company.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/editClient.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/editClient.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/generate.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/generate.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/invoices.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/invoices.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/invoicesdata.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/invoicesdata.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clientside/src/components/services.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/services.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverside/Routes/allRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverside/Routes/allRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverside/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverside/config/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverside/models/invoices.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverside/models/invoices.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -131,7 +99,7 @@
       <workItem from="1572842530410" duration="13053000" />
       <workItem from="1572855994942" duration="15781000" />
       <workItem from="1572931596573" duration="9811000" />
-      <workItem from="1572945891348" duration="8170000" />
+      <workItem from="1572945891348" duration="9209000" />
     </task>
     <servers />
   </component>

@@ -132,7 +132,7 @@ updateRow=(e)=>{
             .then((canvas) => {
                 const imgData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF();
-                pdf.addImage(imgData, 'PNG', 3, 12, 205, 190);
+                pdf.addImage(imgData, 'PNG', 3, 12, 207, 190);
 
                 // pdf.output('dataurlnewwindow');
                 pdf.save("invoice.pdf");

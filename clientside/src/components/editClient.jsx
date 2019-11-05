@@ -65,18 +65,25 @@ class EditClient extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        const obj = {
-            name: this.state.name,
-            email: this.state.email,
-            address: this.state.address,
-            company: this.state.company
-        };
-        axios.put('http://localhost:5000/brp/updateclient/' + this.props.match.params.id, obj)
-            .then(res => console.log(res.data));
+        let form =this.editClientForm;
+        if (form.checkValidity() === false) {
+            form.classList.add('was-validated');
+        }
+        else{
+            const obj = {
+                name: this.state.name,
+                email: this.state.email,
+                address: this.state.address,
+                company: this.state.company
+            };
+            axios.put('http://localhost:5000/brp/updateclient/' + this.props.match.params.id, obj)
+                .then(res => console.log(res.data));
 
-        this.props.history.push('/client');
-        window.location.reload()
-    }
+            this.props.history.push('/client');
+            window.location.reload()
+        }
+        }
+
 
 
     render() {
@@ -95,38 +102,55 @@ class EditClient extends Component {
                                 </MDBCardHeader>
 
                                 <MDBCardBody>
-                                    <form onSubmit={this.onSubmit}>
+                                    <form onSubmit={this.onSubmit} ref={ref => this.editClientForm =ref} noValidate className="needs-validation">
                                         <div className="container-fluid" style={{ borderStyle: "groove", borderRadius: "10px" }}>
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <MDBInput icon="user" type="text" label="Client-name"
                                                         value={this.state.name}
                                                         onChange={this.onChangePersonName}
-                                                    />
+                                                              required
+                                                    >
+                                                        <div  className="valid-feedback">Looks good!</div>
+                                                        <div  className="invalid-feedback">Please provide a Name</div>
+                                                    </MDBInput>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <MDBInput icon="address-card" type="text" label="Address"
                                                         value={this.state.address}
                                                         onChange={this.onChangeAddress}
-                                                    /><br />
+                                                              required
+                                                    >
+                                                        <div  className="valid-feedback">Looks good!</div>
+                                                        <div  className="invalid-feedback">Please provide a Valid Address</div>
+                                                    </MDBInput><br />
                                                 </div>
                                                 <div className="col-md-4">
-                                                    <MDBInput icon="at" type="text" label="Email"
+                                                    <MDBInput icon="at" type="email" label="Email"
                                                         value={this.state.email}
                                                         onChange={this.onChangeEmail}
-                                                    />
+                                                              required
+                                                    >
+                                                        <div  className="valid-feedback">Looks good!</div>
+                                                        <div  className="invalid-feedback">Please provide a Valid Email with @</div>
+                                                    </MDBInput>
                                                 </div>
                                                 <div className="col-md-4">
                                                     <MDBInput icon="building" type="text" label="Company-name"
                                                         value={this.state.company}
                                                         onChange={this.onChangeCompany}
+
                                                     /><br />
                                                 </div>
                                                 <div className="col-md-4">
-                                                    <MDBInput icon="mobile" type="text" label="Contact-no"
+                                                    <MDBInput icon="mobile" type="number" label="Contact-no"  min="1" step="1"
                                                         value={this.state.number}
                                                         onChange={this.onChangeNumber}
-                                                    /><br />
+                                                              required
+                                                    >
+                                                        <div  className="valid-feedback">Looks good!</div>
+                                                        <div  className="invalid-feedback">Please provide a Valid number</div>
+                                                    </MDBInput><br />
                                                 </div>
 
                                             </div>

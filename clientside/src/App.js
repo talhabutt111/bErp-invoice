@@ -42,6 +42,7 @@ function App() {
         <MDBIcon icon="building" /> <Link to="/company">Company</Link><br /><br />
       </div>
       <Switch>
+
         <Route path="/generate" component={Generate} />
         <Route path="/client" component={Client} />
         <Route path="/invoices" component={Invoices} />

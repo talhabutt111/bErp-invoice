@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="993e0459-6c50-4a7f-bd09-d3e9fcf4c300" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/editClient.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/editClient.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/generate.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/generate.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/App.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +98,9 @@
       <workItem from="1572842530410" duration="13053000" />
       <workItem from="1572855994942" duration="15781000" />
       <workItem from="1572931596573" duration="9811000" />
-      <workItem from="1572945891348" duration="12970000" />
+      <workItem from="1572945891348" duration="13113000" />
+      <workItem from="1572959964736" duration="672000" />
+      <workItem from="1573015389444" duration="2847000" />
     </task>
     <servers />
   </component>

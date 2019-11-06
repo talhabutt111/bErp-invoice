@@ -14,7 +14,7 @@ Client.sync(
    //  { force: true }
 )
     .then(() => {
-        console.log('Client is ready')
+        // console.log('Client is ready')
     })
     .catch((err) => {
         console.log(err)

@@ -13,7 +13,7 @@ itemsdata.sync(
       // { force: true }
 )
     .then(() => {
-        console.log('items Data is ready')
+        // console.log('items Data is ready')
     })
     .catch((err) => {
         console.log(err)

@@ -1,5 +1,5 @@
 const Sequelize=require('sequelize');
-module.exports = new Sequelize('brp_invoices', 'root', '', {
+module.exports = new Sequelize('berpinvoice', 'asas', 'asas1234', {
     host: 'localhost',
     dialect: 'mysql',
     pool: {
@@ -7,4 +7,5 @@ module.exports = new Sequelize('brp_invoices', 'root', '', {
         min: 0,
         idle: 10000
     },
+    logging: false
 });

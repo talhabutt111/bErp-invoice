@@ -18,7 +18,7 @@ Invoices.sync(
   //  { force: true }
 )
     .then(() => {
-        console.log('invoices is ready')
+        // console.log('invoices is ready')
     })
     .catch((err) => {
         console.log(err)

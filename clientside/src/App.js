@@ -49,7 +49,7 @@ function App() {
         <Route path="/services" component={Services} />
         <Route path="/company" component={Company} />
         <Route path='/edit/:id' component={editClient} />
-        <Route path='/editinvoice/:id' component={editInvoice} />
+        <Route path='/editinvoice/:id' Component={editInvoice} />
         <Route path='/itemsdetail/:slagme' component={ItemsDetail} />
         <Route path="/addClient" component={addClient} />
       </Switch>

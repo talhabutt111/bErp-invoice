@@ -9,7 +9,7 @@ class Inovicesdata extends Component {
             message:''
         };
 
-        console.log("this.props", this.props.obj);
+        // console.log("this.props", this.props.obj);
     }
 
 
@@ -34,7 +34,7 @@ class Inovicesdata extends Component {
             .catch(error =>console.log(error))
     };
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         let { obj } = this.props
         return (
             <MDBTableBody>

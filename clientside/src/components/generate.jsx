@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBIcon, } from 'mdbreact';
+import React, {Component} from "react";
+import {MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBIcon,} from 'mdbreact';
 import invoice from './devZone-Logo.png';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -9,16 +9,16 @@ const today = new Date();
 const mydate = today.toDateString();
 const id = Math.floor((Math.random() * 200000) + 1);
 const options = [
-    { value: 'seo', label: 'SEO' },
-    { value: 'web development', label: 'WEB DEVELOPMENT' },
-    { value: 'graphic designing', label: 'Graphics Designing' },
-    { value: 'mobile apps', label: 'Mobile Apps' }
+    {value: 'seo', label: 'SEO'},
+    {value: 'web development', label: 'WEB DEVELOPMENT'},
+    {value: 'graphic designing', label: 'Graphics Designing'},
+    {value: 'mobile apps', label: 'Mobile Apps'}
 ];
 const option1 = [
-    { value: 'no', label: 'none' },
-    { value: '2', label: '2' },
-    { value: '4', label: '4' },
-    { value: '6', label: '6' },
+    {value: 'no', label: 'none'},
+    {value: '2', label: '2'},
+    {value: '4', label: '4'},
+    {value: '6', label: '6'},
 
 ];
 
@@ -53,7 +53,7 @@ class Generate extends Component {
     }
 
     cleararray = () => {
-        this.setState({ item: [] });
+        this.setState({item: []});
     }
 
     submit = (e) => {
@@ -65,7 +65,7 @@ class Generate extends Component {
             const obj = {
                 slagme: this.state.invoice_id,
                 name: this.state.selectedClient,
-                address: this.state.selectedAddress,
+                address: this.state.address,
                 number: this.state.phone,
                 date: this.state.date,
                 services: this.state.services,
@@ -75,11 +75,11 @@ class Generate extends Component {
             // console.log(obj)
             axios.post('http://localhost:5000/brp/invoice', obj)
                 .then(res => {
-                    this.setState({ message: res.data.message });
+                    this.setState({message: res.data.message});
                     console.log(res.data);
                     // this.setState({description:this.state.item[0].description},() =>{
-                    //     console.log(this.state.description)})
-                    // console.log(this.state.item)
+                    //                     //     console.log(this.state.description)})
+                    //                     // console.log(this.state.item)
                 })
                 .catch(err => {
                     console.log(err)
@@ -92,6 +92,8 @@ class Generate extends Component {
                     console.log(res)
                 })
                 .catch(error => console.log(error))
+            window.location.reload(3);
+
         }
     };
 
@@ -118,12 +120,12 @@ updateRow=(e)=>{
             .then(data => {
                 // console.log(data);
 
-                this.setState({ clients: data }, () => {
+                this.setState({clients: data}, () => {
                     // console.log(this.state.clients)
                 });
             }).catch(error => {
-                console.log(error);
-            });
+            console.log(error);
+        });
     }
 
     printDocument() {
@@ -137,7 +139,7 @@ updateRow=(e)=>{
                 // pdf.output('dataurlnewwindow');
                 pdf.save("invoice.pdf");
             })
-            ;
+        ;
     }
 
     alertmessage = () => {
@@ -167,46 +169,15 @@ updateRow=(e)=>{
         //     total += Number(items.price);
         //     console.log(total);
         // });
-        this.setState({ total: total })
+        this.setState({total: total})
 
-    }
+    };
 
-    // submit = (e) => {
-    //     e.preventDefault();
-    //     let form = this.generate;
-    //     if (form.checkValidity() === false) {
-    //         form.classList.add('was-validated');
-    //     }
-    //     else {
-    //         let obj2 = {
-    //             slagme:this.state.slagme,
-    //             name:this.state.name,
-    //             address: this.state.address,
-    //             number: this.state.phone,
-    //             date: this.state.date,
-    //             services: this.state.services,
-    //             description: this.state.description,
-    //             price:this.state.price,
-    //             qty:this.state.qty,
-    //             total_amount: this.state.total,
-    //         };
-    //         // console.log('object to backend holds',obj2);
-    //         axios.post('http://localhost:5000/brp/invoice', obj2)
-    //             .then(res => {
-    //                     console.log(res);
-    //
-    //                     this.setState({ message: res.data.message });
-    //                     console.log(this.state.message);
-    //                 }
-    //             );
-    //     }
-    //
-    //
-    // };
 
     render() {
-        let { total, description, qty, price } = this.state;
 
+        let {total, description, qty, price,item} = this.state;
+     //   console.log(item)
         return (
             <div className="container-fluid">
                 <form onSubmit={this.submit} ref={ref => this.generate = ref} noValidate>
@@ -217,10 +188,10 @@ updateRow=(e)=>{
                                 <MDBCard id="capture">
                                     <MDBCardBody>
                                         <h2 className="text-center"
-                                            style={{ backgroundColor: "#9ACD32", color: "white" }}>INVOICE</h2>
+                                            style={{backgroundColor: "#9ACD32", color: "white"}}>INVOICE</h2>
                                         <div className="row">
                                             <div className="col-sm-3">
-                                                <img src={invoice} width="220px" height="auto" /> <br />
+                                                <img src={invoice} width="220px" height="auto"/> <br/>
                                                 <MDBInput label="Creation Date" value={mydate}
                                                 />
                                                 <MDBInput label="Invoice-id" value={id}
@@ -232,10 +203,10 @@ updateRow=(e)=>{
                                                     <MDBCardBody>
                                                         <strong>
                                                             DevZone Solutions
-                                                        </strong><br />
-                                                        Mobile: +92 306 5619198<br />
-                                                        Email:contact@devzone.com.pk<br />
-                                                        Address: 42-5-A2 Township, Lahore, Pakistan<br />
+                                                        </strong><br/>
+                                                        Mobile: +92 306 5619198<br/>
+                                                        Email:contact@devzone.com.pk<br/>
+                                                        Address: 42-5-A2 Township, Lahore, Pakistan<br/>
                                                     </MDBCardBody>
                                                 </MDBCard>
 
@@ -244,136 +215,211 @@ updateRow=(e)=>{
                                         {this.alertmessage()}
                                         <div className="row">
                                             <div className="col-sm-4">
-                                                <br />
+                                                <br/>
+
                                                 <select value={this.state.selectedClient}
-                                                    className="browser-default custom-select"
-                                                    onChange={(e) => {
-                                                        let ourClient = this.state.clients.filter(client => client.id == e.target.value).shift()
-                                                        this.setState({
-                                                            selectedClient: ourClient.cl_name,
-                                                            selectedAddress: ourClient.address
-                                                        })
-                                                    }}
-                                                    required>
-                                                    <option key={Math.random()}>Select Client--</option>
+                                                        className="browser-default custom-select"
+                                                        onChange={(e) => {
+                                                            let ourClient = this.state.clients.filter(client => client.id == e.target.value).shift()
+                                                            this.setState({
+                                                                selectedClient: ourClient.cl_name,
+                                                                address: ourClient.address,
+                                                                phone: ourClient.number
+
+                                                            })
+                                                        }}
+                                                        required>
+                                                    <option key={Math.random()}>{this.state.selectedClient}</option>
                                                     {this.state.clients.map((cl) => <option key={cl.id}
-                                                        value={cl.id}>{cl.cl_name}</option>)}
+                                                                                            value={cl.id}>{cl.cl_name}</option>)}
                                                 </select>
                                             </div>
                                             <div className="col-sm-4">
-                                                <br />
-                                                <label style={{ color: 'red' }}>{this.state.selectedAddress}jj</label>
-                                                {/* <select value={this.state.selectedAddress}
-                                                    className="browser-default custom-select"
-                                                    onChange={(e) => this.setState({ selectedAddress: e.target.value })}
-                                                    required>
-                                                    {this.state.clients.map((cl) => <option key={cl.id}
-                                                        value={cl.address}>{cl.address}</option>)}
-                                                </select> */}
+                                                <MDBInput label="address" value={this.state.address}
+                                                          // disabled={true}
+                                                    required
+                                                />
+
                                             </div>
+
                                             <div className="col-sm-4">
-                                                <MDBInput label="Phone no" onChange={e => {
-                                                    this.setState({ phone: e.target.value })
-                                                }} type="number" min="1" step="1" required />
+
+                                                <MDBInput label="Phone no"
+                                                          value={this.state.phone}
+                                                          // disabled={true}
+                                                          required/>
                                             </div>
                                         </div>
                                         <div className="container-fluid"
-                                            style={{ borderStyle: "groove", borderRadius: "10px" }}>
+                                             style={{borderStyle: "groove", borderRadius: "10px"}}>
                                             <strong className="text-center">Select services</strong>
                                             <p></p>
                                             <div className="row">
                                                 <div className="col-sm-6">
                                                     Services
                                                     <select className="form-control" onChange={event => {
-                                                        this.setState({ services: event.target.value })
+                                                        this.setState({services: event.target.value})
                                                     }} required>
+                                                        <option>--Select Services</option>
                                                         <option value="seo">SEO</option>
                                                         <option value="web development">Web Development</option>
                                                         <option value="mob app">MObile App</option>
                                                         <option value="graphic designing">Graphic Designing</option>
                                                     </select>
                                                 </div>
-                                                {/* <div className="col-sm-3">
-                                                    Revisions
-                                                    <select className="form-control" onChange={event => {
-                                                        this.setState({ revisions: event.target.value })
-                                                    }}>
-                                                        <option value="none">none</option>
-                                                        <option value="2">2</option>
-                                                        <option value="4">4</option>
-                                                        <option value="6">6</option>
-                                                    </select>
-                                                </div> */}
+
                                             </div>
                                             <div className="row">
+
                                                 <div className="col-sm-4">
-                                                    <MDBInput label="Item-descrption" value={description} type="text"
-                                                        onChange={e => {
-                                                            this.setState({ description: e.target.value })
-                                                        }} />
+
+                                                    <MDBInput id="myinput" label="Item-descrption" value={description}
+                                                              type="text"
+                                                              onChange={e => {
+                                                                  document.getElementById('myinput').style.borderBottomColor = "green"
+                                                                  this.setState({description: e.target.value})
+                                                              }}
+
+                                                    />
                                                 </div>
                                                 <div className="col-sm-2">
-                                                    <MDBInput label="Qty" value={qty} type="number" min="1" step="1"
-                                                        onChange={e => {
-                                                            this.setState({ qty: e.target.value })
-                                                        }} />
+                                                    <MDBInput id="myinput2" label="Qty" value={qty} type="number"
+                                                              min="1" step="1"
+                                                              onChange={e => {
+                                                                  document.getElementById('myinput2').style.borderBottomColor = "green"
+                                                                  this.setState({qty: e.target.value})
+                                                              }}
+
+                                                    />
                                                 </div>
                                                 <div className="col-sm-3">
-                                                    <MDBInput label="Price" value={price} type="number" min="1" step="1"
-                                                        onChange={e => {
-                                                            this.setState({ price: e.target.value })
-                                                        }} />
+                                                    <MDBInput id="myinput3" label="Price" value={price} type="number"
+                                                              min="1" step="1"
+                                                              onChange={e => {
+                                                                  document.getElementById('myinput3').style.borderBottomColor = "green"
+                                                                  this.setState({price: e.target.value})
+                                                              }}
+
+                                                    />
                                                 </div>
                                                 <div className="col-sm-5">
                                                     <button onClick={(e) => {
                                                         e.preventDefault()
-                                                        let newitem = {
-                                                            incoice_id: id,
-                                                            detail: this.state.description,
-                                                            qty: this.state.qty,
-                                                            price: this.state.price
-                                                        };
-                                                        this.setState({
-                                                            item: [...this.state.item, newitem],
-                                                            description: '',
-                                                            qty: '',
-                                                            price: ''
-                                                        }, function () {
-                                                            console.log('items array is', this.state.item);
-                                                        });
+                                                        if (this.state.description === null || this.state.qty === null || this.state.price === null || this.state.description === '' || this.state.qty === '' || this.state.price === '') {
+                                                            //       let array=  document.getElementById("myinput");
 
-                                                    }} color="transparent"><MDBIcon icon="plus" /></button>
+                                                            //        array.style.borderBottomColor="#FF0000"
+                                                            return (
+                                                                document.getElementById("myinput").style.borderColor = "#FF0000",
+                                                                    document.getElementById("myinput2").style.borderColor = "#FF0000",
+                                                                    document.getElementById("myinput3").style.borderColor = "#FF0000"
+                                                            )
+                                                        } else {
+
+                                                            let newitem = {
+                                                                incoice_id: id,
+                                                                detail: this.state.description,
+                                                                qty: this.state.qty,
+                                                                price: this.state.price
+                                                            };
+                                                            this.setState({
+                                                                item: [...this.state.item, newitem],
+                                                                description: '',
+                                                                qty: '',
+                                                                price: ''
+                                                            }, function () {
+                                                                // console.log('items array is', this.state.item);
+
+                                                            });
+                                                        }
+                                                    }
+                                                    } color="transparent"><MDBIcon icon="plus"/></button>
                                                 </div>
                                             </div>
-                                            <br />
+                                            <br/>
 
 
                                             <div className="col-md-8">
                                                 <table id='invoiceTable' className="table table-bordered">
                                                     <thead>
-                                                        <tr>
-                                                            <th>Description</th>
-                                                            <th>qunatity</th>
-                                                            <th>price</th>
-                                                        </tr>
+                                                    <tr>
+                                                        <th>Description</th>
+                                                        <th>qunatity</th>
+                                                        <th>price</th>
+                                                    </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {this.state.item.map((item, index) => {
-                                                            return (
+                                                    {this.state.item.map((item, index) => {
+                                                        return (
 
 
-                                                                <tr key={index}>
-                                                                    <td suppressContentEditableWarning={true}
-                                                                        contentEditable={true}>{item.detail}</td>
-                                                                    <td suppressContentEditableWarning={true}
-                                                                        contentEditable={true}>{item.qty}</td>
-                                                                    <td suppressContentEditableWarning={true}
-                                                                        contentEditable={true}>{item.price}</td>
+                                                            <tr key={index}>
+                                                               <td
 
-                                                                </tr>
+                                                                    onBlur={(e) =>{
+                                                                        let el = e.target;
+                                                                        let row = el.closest('tr');
+                                                                        var i = row.rowIndex;
+                                                                        console.log(index)
+                                                                        console.log(i)
+                                                                        this.setState({
+                                                                            item: [
+                                                                                ...this.state.item.slice(0,index),
+                                                                                Object.assign({}, this.state.item[index], {detail: el.innerHTML}),
+                                                                                ...this.state.item.slice(index+1)
+                                                                            ]
+                                                                        });
+                                                                    }
+                                                                     }
 
-                                                            )
-                                                        })}
+
+                                                                    suppressContentEditableWarning={true}
+                                                                    contentEditable={true}>{item.detail}</td>
+                                                                <td
+                                                                    onBlur={(e) => {
+                                                                        let el = e.target;
+                                                                        let row = el.closest('tr');
+                                                                        var i = row.rowIndex;
+                                                                        console.log(index);
+                                                                        console.log(i);
+                                                                        this.setState({
+                                                                            item: [
+                                                                                ...this.state.item.slice(0, index),
+                                                                                Object.assign({}, this.state.item[index], {qty: el.innerHTML}),
+                                                                                ...this.state.item.slice(index + 1)
+                                                                            ]
+                                                                        });
+                                                                    }
+                                                                    }
+
+
+                                                                    suppressContentEditableWarning={true}
+                                                                    contentEditable={true}>{item.qty}</td>
+                                                                <td
+                                                                    onBlur={(e) => {
+                                                                    let el = e.target;
+                                                                    let row = el.closest('tr');
+                                                                    var i = row.rowIndex;
+                                                                    console.log(index)
+                                                                    console.log(i)
+                                                                    this.setState({
+                                                                        item: [
+                                                                            ...this.state.item.slice(0, index),
+                                                                            Object.assign({}, this.state.item[index], {price: el.innerHTML}),
+                                                                            ...this.state.item.slice(index + 1)
+                                                                        ]
+                                                                    });
+                                                                }
+                                                                }
+
+
+                                                                    suppressContentEditableWarning={true}
+                                                                    contentEditable={true}>{item.price}</td>
+
+                                                            </tr>
+
+                                                        )
+                                                    })}
                                                     </tbody>
 
                                                 </table>
@@ -381,13 +427,13 @@ updateRow=(e)=>{
 
                                             <div className="row">
                                                 <div className="col-sm-9"><MDBBtn color="transparent"
-                                                    onClick={this.calculateTotal}>Calculated</MDBBtn>
+                                                                                  onClick={this.calculateTotal}>Calculated</MDBBtn>
                                                     <MDBBtn onClick={this.cleararray} color="transparent"><MDBIcon
-                                                        icon="broom" /></MDBBtn>
+                                                        icon="broom"/></MDBBtn>
                                                 </div>
                                                 <div className="col-sm-2">
                                                     RS <textarea onChange={() => {
-                                                    }} className="form-control" placeholder="Total" value={total} />
+                                                }} className="form-control" placeholder="Total" value={total}/>
                                                     <p></p>
                                                 </div>
                                             </div>
@@ -399,15 +445,15 @@ updateRow=(e)=>{
                                 </MDBCard>
 
                                 <MDBBtn onClick={this.printDocument} color="info" className="pull-right"
-                                    size="md"><MDBIcon icon="file-pdf" size="lg" /> Convert to PDF</MDBBtn>
+                                        size="md"><MDBIcon icon="file-pdf" size="lg"/> Convert to PDF</MDBBtn>
                                 <MDBBtn color="success" type="submit"
-                                    onClick={this.submit}
-                                    size="md"><MDBIcon icon="save" size="lg" /> Save Record</MDBBtn>
+                                        onClick={this.submit}
+                                        size="md"><MDBIcon icon="save" size="lg"/> Save Record</MDBBtn>
                             </div>
                         </div>
                     </div>
                 </form>
-            </div >
+            </div>
 
         )
     }

@@ -21,8 +21,7 @@ class Clientdata extends Component {
 
         axios.delete('http://localhost:5000/brp/deleteclient/' + this.props.obj.id)
             .then(res => {
-                // console.log(res);
-                // console.log('ok');
+
                 this.setState({ message: res.data.message })
                 console.log(res)
                 document.getElementById('clientsTable').deleteRow(i)
@@ -46,9 +45,7 @@ class Clientdata extends Component {
         return (
 
             <MDBTableBody>
-                {
-                    <strong> {this.state.message}</strong>
-                }
+
                 <tr>
                     <td> {this.props.obj.cl_name}</td>
                     <td>{this.props.obj.address}</td>

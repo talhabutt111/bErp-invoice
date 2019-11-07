@@ -4,6 +4,12 @@
     <list default="true" id="993e0459-6c50-4a7f-bd09-d3e9fcf4c300" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clientside/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/components/clientdata.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/clientdata.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/components/generate.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/generate.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/components/invoices.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/invoices.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/components/invoicesdata.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/invoicesdata.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/components/services.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/services.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serverside/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverside/config/config.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,9 +53,10 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../React mini Projects(practice)/musiclist.app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -101,6 +108,9 @@
       <workItem from="1572945891348" duration="13113000" />
       <workItem from="1572959964736" duration="672000" />
       <workItem from="1573015389444" duration="2847000" />
+      <workItem from="1573042655653" duration="4722000" />
+      <workItem from="1573102496293" duration="12665000" />
+      <workItem from="1573119275225" duration="1518000" />
     </task>
     <servers />
   </component>

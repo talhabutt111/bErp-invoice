@@ -17,7 +17,7 @@ class Invoices extends Component {
             .then(res => {
                 // console.log(res.invoices)
                 this.setState({ invoices: res.data.invoices },() =>{
-                    console.log('invoices are',this.state.invoices)});
+                    });
             })
             .catch((error) => {
                 console.log(error);

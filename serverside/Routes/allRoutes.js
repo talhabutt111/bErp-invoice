@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../config/config');
 const Client = require('../models/clients');
 const Invoice = require('../models/invoices');
-const Item=require('../models/itemData');
+const Item = require('../models/itemData');
 
 //CLIENT MODULE HERE...
 //Get All Clients
@@ -89,7 +89,7 @@ router.delete('/deleteclient/:id', (req, res) => {
 router.get('/invoices', (req, res) => {
 
     Invoice.findAll({
-        attributes: ['id', 'c_name', 'c_address', 'date', 'c_number', 'services', 'total_amount', 'slagme', 'created_at']
+        attributes: ['id', 'c_name', 'c_address', 'date', 'c_number', 'total_amount', 'slagme', 'created_at']
     })
         .then(invoices => res.json({ succces: true, invoices: invoices }))
         .catch(err => console.log(err));
@@ -107,10 +107,10 @@ router.get('/invoices/:id', (req, res) => {
         where: {
             id: invoice_id
         },
-        attributes: ['id', 'c_name', 'c_email', 'c_address', 'c_number', 'services', 'items', 'quantity', 'total_amount', 'created_at']
+        attributes: ['id', 'slagme', 'date', 'c_name', 'c_address', 'c_number', 'total_amount', 'created_at']
 
     })
-        .then(invoices => res.json({ error: false, data: invoices, status: 200 }))
+        .then(invoices => res.json({ error: false, invoice: invoices, status: 200 }))
         .catch(err => console.log(err));
 });
 //Create New Invoice
@@ -145,9 +145,9 @@ router.delete('/deleteinvoice/:id', (req, res) => {
                 id: req.params.id
             }
         }).then((data) =>
-        res.json({ success: true, ourData: data, message: 'Client has been deleted successfully' }
+            res.json({ success: true, ourData: data, message: 'Client has been deleted successfully' }
 
-    ))
+            ))
         .catch(err => console.log(err));
 
 });
@@ -174,39 +174,42 @@ router.put('/updateinvoice/:id', (req, res) => {
         .then((update) => res.json({ error: false, data: update, messsage: 'invoice updated successfully' }))
         .catch(err => res.json(err))
 });
-router.post('/itemsdata' ,(req, res) =>{
-   const items=req.body;
+
+router.post('/itemsdata', (req, res) => {
+    const items = req.body;
     Item.bulkCreate(items)
-        .then((res) => res.json({error:false,message:'Items Created'}))
-        .catch(err =>res.send(err));
+        .then((res) => res.json({ error: false, message: 'Items Created' }))
+        .catch(err => res.send(err));
 });
+
 router.get('/oneitemdata/:slagme', (req, res) => {
-    const invoive_id = req.params.slagme;
-    if (!invoive_id) {
+    const invoice_id = req.params.slagme;
+    if (!invoice_id) {
         console.log("no Data crosspond to this id  ");
     } else {
-        console.log("invoice items data is ", invoive_id);
+        console.log("invoice items data is ", invoice_id);
     }
 
     Item.findAll({
         where: {
-            incoice_id: invoive_id
+            invoice_id: invoice_id
         },
-        attributes: ['detail', 'qty', 'price']
+        attributes: ['services', 'detail', 'qty', 'price']
     })
         .then(items => res.send(items))
         .catch(err => console.log(err));
 });
+
 router.delete('/deleteitemsdata/:slagme', (req, res) => {
     Item.destroy(
         {
             where: {
-                incoice_id: req.params.slagme
+                invoice_id: req.params.slagme
             }
         }).then((data) =>
-        res.json({ success: true, ourData: data, message: 'invoice Data has been deleted successfully' }
+            res.json({ success: true, ourData: data, message: 'invoice Data has been deleted successfully' }
 
-        ))
+            ))
         .catch(err => console.log(err));
 
 });

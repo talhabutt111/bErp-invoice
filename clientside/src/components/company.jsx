@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from './devZone-Logo.png'
+import logo from './images/devZone-Logo.png'
 import { MDBCard, MDBCardBody, MDBCardHeader, MDBCol, MDBRow } from "mdbreact";
 class Company extends Component {
     render() {

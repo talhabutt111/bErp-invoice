@@ -9,11 +9,11 @@ import Client from "./components/client";
 import Invoices from "./components/invoices";
 import Services from "./components/services";
 import Company from "./components/company";
-import Generate from "./components/generate";
+import GenerateInvoice from "./components/GenerateInvoice";
 import { MDBIcon } from "mdbreact";
 import addClient from "./components/Addclient";
 import editClient from "./components/editClient";
-import editInvoice from "./components/editInvoice";
+import EditInvoice from "./components/EditInvoice ";
 import ItemsDetail from "./components/items_details";
 
 
@@ -43,13 +43,13 @@ function App() {
       </div>
       <Switch>
 
-        <Route path="/generate" component={Generate} />
+        <Route path="/generate" component={GenerateInvoice} />
         <Route path="/client" component={Client} />
         <Route path="/invoices" component={Invoices} />
         <Route path="/services" component={Services} />
         <Route path="/company" component={Company} />
         <Route path='/edit/:id' component={editClient} />
-        <Route path='/editinvoice/:id' Component={editInvoice} />
+        <Route path='/editinvoice/:id' component={EditInvoice} />
         <Route path='/itemsdetail/:slagme' component={ItemsDetail} />
         <Route path="/addClient" component={addClient} />
       </Switch>

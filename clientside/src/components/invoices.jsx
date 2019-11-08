@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {MDBCard, MDBCardBody, MDBCardHeader, MDBTable, MDBTableHead} from "mdbreact";
+import React, { Component } from "react";
+import { MDBCard, MDBCardBody, MDBCardHeader, MDBTable, MDBTableHead } from "mdbreact";
 import axios from 'axios';
 import Inovicesdata from "./invoicesdata";
 
@@ -12,10 +12,11 @@ class Invoices extends Component {
     }
 
     componentDidMount() {
+
         axios.get('http://localhost:5000/brp/invoices')
             .then(res => {
-                // console.log(res.invoices)
-                this.setState({invoices: res.data.invoices}, () => {
+                // console.log(res.data.invoices)
+                this.setState({ invoices: res.data.invoices }, () => {
                 });
             })
             .catch((error) => {
@@ -25,7 +26,7 @@ class Invoices extends Component {
 
     tabRow = () => {
         return this.state.invoices.map(function (object, i) {
-            return <Inovicesdata obj={object} key={Math.random()}/>;
+            return <Inovicesdata obj={object} key={Math.random()} />;
         });
     }
 
@@ -40,8 +41,8 @@ class Invoices extends Component {
                         <div className="col-sm-1"></div>
                         <div className="col-sm-11">
                             <MDBCard>
-                                <MDBCardHeader tag="h3" style={{backgroundColor: "#9ACD32", color: "white"}}
-                                               className="text-center font-weight-bold text-uppercase py-4">
+                                <MDBCardHeader tag="h3" style={{ backgroundColor: "#9ACD32", color: "white" }}
+                                    className="text-center font-weight-bold text-uppercase py-4">
                                     Invoices Record
                                 </MDBCardHeader>
 

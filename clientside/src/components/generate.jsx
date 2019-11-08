@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBIcon, } from 'mdbreact';
-import invoice from './devZone-Logo.png';
+import invoice from './images/devZone-Logo.png';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import axios from 'axios';
-
 // const today = new Date();
 // const mydate = today.toDateString();
 // const id = Math.floor((Math.random() * 200000) + 1);
@@ -19,25 +18,24 @@ const servicesOptions = [
 class Generate extends Component {
     constructor(props) {
         super(props);
+        this.editingInvoiceId = this.props.id
         this.state = {
             date: new Date().toDateString(),
             invoice_id: Math.floor((Math.random() * 200000) + 1),
-            name: '',
             address: '',
             phone: '',
-            services: '',
-            revisions: '',
-            item: [],
             total: 0,
+            selectedClient: '',
+            // item: [{ services: 'seo', detail: 'ggd', qty: '3', price: '4' }],
+            item: [],
+            services: '',
             discount: '',
             clients: [],
-            selectedClient: '',
-            selectedAddress: '',
-            tabrow: '',
             message: '',
             description: '',
             qty: '',
-            price: ''
+            price: '',
+            printInvoice: true
         }
     }
 
@@ -61,39 +59,51 @@ class Generate extends Component {
             return
         }
         else {
-            let { invoice_id, selectedClient, address, phone, date, services, total } = this.state
+            let { invoice_id, selectedClient, address, phone, date, total, printInvoice } = this.state
             const obj = {
                 slagme: invoice_id,
                 name: selectedClient,
                 address: address,
                 number: phone,
                 date: date,
-                services: services,
                 total_amount: total,
             };
-            // console.log(obj)
             axios.post('http://localhost:5000/brp/invoice', obj)
                 .then(res => {
                     this.setState({ message: res.data.message });
-                    console.log(res.data);
-                    // this.setState({description:this.state.item[0].description},() =>{
-                    //                     //     console.log(this.state.description)})
-                    //                     // console.log(this.state.item)
+                    // console.log(res.data);
+                    axios.post('http://localhost:5000/brp/itemsdata', item)
+                        .then(res => {
+                            // console.log(res)
+                            this.setState({
+                                item: [],
+                                address: '',
+                                phone: '',
+                                services: '',
+                                total: 0,
+                                selectedClient: '',
+                                description: '',
+                                qty: '',
+                                price: '',
+                                message: '',
+                            })
+                            this.selectClientForm.classList.remove('was-validated')
+                            if (printInvoice) {
+                                const input = document.getElementById('capture');
+                                html2canvas(input)
+                                    .then((canvas) => {
+                                        const imgData = canvas.toDataURL('image/png');
+                                        const pdf = new jsPDF();
+                                        pdf.addImage(imgData, 'PNG', 3, 12, 207, 190);
+                                        pdf.save("invoice.pdf");
+                                    });
+                            }
+                        })
+                        .catch(error => console.log(error))
                 })
                 .catch(err => {
                     console.log(err)
                 });
-            const itemData = item;
-
-            console.log(itemData)
-            axios.post('http://localhost:5000/brp/itemsdata', itemData)
-                .then(res => {
-                    console.log(res)
-                })
-                .catch(error => console.log(error))
-            setTimeout(function () {
-                window.location.reload();
-            }, 2000)
         }
     };
 
@@ -110,19 +120,45 @@ class Generate extends Component {
             }).catch(error => {
                 console.log(error);
             });
-    }
 
-    saveDocumentToPdf = () => {
-        if (this.state.item.length !== 0) {
-            const input = document.getElementById('capture');
-            html2canvas(input)
-                .then((canvas) => {
-                    const imgData = canvas.toDataURL('image/png');
-                    const pdf = new jsPDF();
-                    pdf.addImage(imgData, 'PNG', 3, 12, 207, 190);
-                    // pdf.output('dataurlnewwindow');
-                    pdf.save("invoice.pdf");
-                });
+        if (this.editingInvoiceId) {
+            axios.get('http://localhost:5000/brp/invoices/' + this.props.id)
+                .then(response => {
+                    // console.log(response);
+                    if (!response.data.error) { var editingInvoice = response.data.invoice.shift() }
+                    editingInvoice && axios.get('http://localhost:5000/brp/oneitemdata/' + editingInvoice.slagme)
+                        .then(response => {
+                            // console.log(response);
+                            let item = []
+                            if (response.data.length !== 0) {
+                                response.data.forEach(data => {
+                                    item.push(
+                                        {
+                                            invoice_id: data.invoice_id,
+                                            services: data.services,
+                                            detail: data.detail,
+                                            qty: data.qty,
+                                            price: data.price
+                                        }
+                                    )
+                                })
+                                this.setState({ item })
+                                editingInvoice && this.setState({
+                                    date: new Date(editingInvoice.date).toDateString(),
+                                    invoice_id: editingInvoice.slagme,
+                                    selectedClient: editingInvoice.c_name,
+                                    address: editingInvoice.c_address,
+                                    phone: editingInvoice.c_number,
+                                    total: editingInvoice.total_amount,
+                                });
+                            }
+                        })
+                        .catch(err => console.log(err))
+                })
+                // .then(() => { console.log(this.state.name, this.state.address) })
+                .catch(function (error) {
+                    console.log(error);
+                })
         }
     }
 
@@ -139,16 +175,14 @@ class Generate extends Component {
     }
 
     calculateTotal = () => {
-        let table = document.getElementById('invoiceTable'), { total } = this.state
+        let table = document.getElementById('invoiceTable'), total = 0
         for (let index = 1; index < table.rows.length; index++) {
-            total += Number(table.rows[index].cells[2].innerHTML)
-            // console.log(typeof(table.rows[index].cells[2].innerHTML));
+            total += Number(table.rows[index].cells[3].innerHTML)
         }
         this.setState({ total: total })
     };
 
     onChangeClient = (e) => {
-        // console.log('changeClient');
         let ourClient = this.state.clients.filter(client => client.id == e.target.value).shift()
         ourClient ?
             this.setState({
@@ -165,7 +199,6 @@ class Generate extends Component {
     }
 
     onChange = name => e => {
-        // console.log('change');
         this.setState({
             [name]: e.target.value
         })
@@ -178,9 +211,10 @@ class Generate extends Component {
             return
         }
         else {
-            let { invoice_id, description, qty, price } = this.state
+            let { invoice_id, description, qty, price, services } = this.state
             let newitem = {
-                incoice_id: invoice_id,
+                invoice_id: invoice_id,
+                services: services,
                 detail: description,
                 qty: qty,
                 price: price
@@ -192,63 +226,71 @@ class Generate extends Component {
                 price: '',
                 services: ''
             }, function () {
-                // console.log('items array is', this.state.item);
                 this.addItemForm.classList.remove('was-validated')
             });
         }
     }
 
-    tdOnBlur = index => (e) => {
-        let el = e.target;
-        let row = el.closest('tr');
-        var i = row.rowIndex;
-        // console.log(index)
-        // console.log(i)
+    tdOnBlur = (index, name) => (e) => {
+        let el = e.target
         this.setState({
             item: [
                 ...this.state.item.slice(0, index),
-                Object.assign({}, this.state.item[index], { detail: el.innerHTML }),
+                Object.assign({}, this.state.item[index], { [name]: el.innerHTML }),
                 ...this.state.item.slice(index + 1)
             ]
         });
     }
 
+    deleteItemData = Index => (e) => {
+        let el = e.target, rowIndex = el.closest('tr').rowIndex
+        this.setState(prevState => ({ item: prevState.item.filter((itemData, index) => { return index !== Index }) }))
+    }
+
 
 
     render() {
+        console.log('re-render');
 
-        let { total, description, qty, price, date, invoice_id, selectedClient, clients, phone, address } = this.state;
+        let { total, description, qty, price, date, invoice_id, selectedClient, clients, phone, address, printInvoice } = this.state;
         let companyDetailStyle = { fontSize: '0.8rem' }
         let clientOptions = clients && clients.map((cl) => <option key={cl.id} value={cl.id}>{cl.cl_name}</option>)
         let tableRows = []
         this.state.item.map((item, index) => {
             tableRows.push(
                 <tr key={index} className='text-center'>
+                    <td>
+                        {item.services}
+                    </td>
                     <td
-                        onBlur={this.tdOnBlur(index)}
+                        onBlur={this.tdOnBlur(index, 'detail')}
                         suppressContentEditableWarning={true}
                         contentEditable={true}
                     >
                         {item.detail}
                     </td>
                     <td
-                        onBlur={this.tdOnBlur(index)}
+                        onBlur={this.tdOnBlur(index, 'qty')}
                         suppressContentEditableWarning={true}
                         contentEditable={true}
                     >
                         {item.qty}
                     </td>
                     <td
-                        onBlur={this.tdOnBlur(index)}
+                        onBlur={this.tdOnBlur(index, 'price')}
                         suppressContentEditableWarning={true}
                         contentEditable={true}
                     >
                         {item.price}
                     </td>
+                    <td>
+                        <MDBBtn size="sm" color="danger" onClick={this.deleteItemData(index)}>
+                            <i className="fas fa-trash" />
+                        </MDBBtn>
+                    </td>
                 </tr>
             )
         })
-        //   console.log(item)
 
 
         return (
@@ -383,7 +425,6 @@ class Generate extends Component {
                                             <div className="col-md-1 m-0 pt-2  align-self-center">
                                                 <button
                                                     type='submit'
-                                                    // onClick={this.addItem}
                                                     color="transparent"
                                                     className='mb-2'
                                                 >
@@ -398,9 +439,11 @@ class Generate extends Component {
                                                 <table id='invoiceTable' className="table table-bordered table-hover table-sm">
                                                     <thead className='thead-light text-center'>
                                                         <tr>
+                                                            <th>Services</th>
                                                             <th>Description</th>
                                                             <th>Qty.</th>
                                                             <th>Price</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -436,35 +479,39 @@ class Generate extends Component {
 
                             </MDBCardBody>
                         </MDBCard>
-                        <div className='text-center'>
-                            <MDBBtn
-                                onClick={this.saveDocumentToPdf}
-                                color="info"
-                                size="md"
-                            >
-                                <MDBIcon
-                                    icon="file-pdf"
-                                    size="lg"
-                                    className='mr-1'
+                        <div className="row m-0 px-2 justify-content-center">
+                            <div className="col-md-2 text-right P-0">
+                                <input
+                                    type="checkbox"
+                                    checked={printInvoice}
+                                    onChange={() => {
+                                        this.setState({
+                                            printInvoice: !this.state.printInvoice
+                                        })
+                                    }}
+                                    className='mt-2 mr-0 w-75 h-75'
                                 />
-                                Convert to PDF
-                            </MDBBtn>
-                            <MDBBtn
-                                color="success"
-                                onClick={this.submitInvoice}
-                                size="md"
-                            >
-                                <MDBIcon
-                                    icon="save"
-                                    size="lg"
-                                    className='mr-1'
-                                />
-                                Save Record
-                        </MDBBtn>
+                            </div>
+                            <div className='col-md-2 align-self-center'>
+                                Save PDF ?
+                            </div>
+                            <div className="col-md-3 p-0">
+                                <MDBBtn
+                                    color="success"
+                                    onClick={this.submitInvoice}
+                                    size="md"
+                                >
+                                    <MDBIcon
+                                        icon="save"
+                                        size="lg"
+                                        className='mr-1'
+                                    />
+                                    Save Record
+                                </MDBBtn>
+                            </div>
                         </div>
                     </div>
                 </div>
-                {/* </form> */}
             </div >
 
         )

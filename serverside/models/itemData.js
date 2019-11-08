@@ -1,16 +1,17 @@
-const Sequelize=require('sequelize');
-const db=require('../config/config');
-const itemDatafields={
+const Sequelize = require('sequelize');
+const db = require('../config/config');
+const itemDatafields = {
 
-    incoice_id : Sequelize.STRING,
-    detail:Sequelize.STRING,
-    qty:Sequelize.STRING,
-    price:Sequelize.STRING,
+    invoice_id: Sequelize.STRING,
+    services: Sequelize.STRING,
+    detail: Sequelize.STRING,
+    qty: Sequelize.STRING,
+    price: Sequelize.STRING,
 };
 const configs = { paranoid: true, underscored: true, };
-const itemsdata=db.define('items_data', itemDatafields, configs);
+const itemsdata = db.define('items_data', itemDatafields, configs);
 itemsdata.sync(
-      // { force: true }
+    // { force: true }
 )
     .then(() => {
         // console.log('items Data is ready')
@@ -18,5 +19,5 @@ itemsdata.sync(
     .catch((err) => {
         console.log(err)
     })
-;
-module.exports =itemsdata;
+    ;
+module.exports = itemsdata;

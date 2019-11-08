@@ -1,6 +1,6 @@
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
-import {MDBBtn, MDBTableBody, MDBTooltip, MDBIcon} from "mdbreact";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { MDBBtn, MDBTableBody, MDBTooltip, MDBIcon } from "mdbreact";
 import axios from "axios";
 
 class Inovicesdata extends Component {
@@ -23,7 +23,7 @@ class Inovicesdata extends Component {
             .then(res => {
                 // console.log(res);
                 // console.log('ok');
-                this.setState({message: res.data.message})
+                this.setState({ message: res.data.message })
                 // console.log(res);
                 document.getElementById('invoicesTable').deleteRow(i)
                 // window.location.reload()
@@ -37,7 +37,7 @@ class Inovicesdata extends Component {
 
     render() {
         // console.log(this.props)
-        let {obj} = this.props
+        let { obj } = this.props
         return (
             <MDBTableBody>
                 <tr>
@@ -53,15 +53,14 @@ class Inovicesdata extends Component {
                             <MDBTooltip
                                 placement="left"
                             >
-                                <MDBBtn size="sm"><MDBIcon icon="eye"/></MDBBtn>
+                                <MDBBtn size="sm"><MDBIcon icon="eye" /></MDBBtn>
                                 <div>
                                     View Items Detail
                                 </div>
                             </MDBTooltip>
                         </Link>
                         <Link to={"/editinvoice/" + obj.id}>
-
-                                <MDBBtn color={'warning'}  size="sm">edit</MDBBtn>
+                            <MDBBtn color={'warning'} size="sm">edit</MDBBtn>
                         </Link>
                         <MDBBtn size="sm" color="danger" onClick={this.delete}>
                             <i className="fas fa-trash">

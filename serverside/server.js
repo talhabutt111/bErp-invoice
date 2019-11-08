@@ -22,4 +22,4 @@ app.use('/brp',require('./Routes/allRoutes'));
 
 
 
-app.listen(port,()  =>{ console.log('server in runing on port',port);});
+app.listen(port,()  =>{ console.log('server is runing on port',port);});

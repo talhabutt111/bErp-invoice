@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { MDBBtn, MDBTableBody } from "mdbreact";
+import { MDBBtn } from "mdbreact";
 import axios from 'axios';
 import { Link } from "react-router-dom";
+
+
 class Clientdata extends Component {
     constructor(props) {
         super(props);
@@ -9,11 +11,9 @@ class Clientdata extends Component {
             message: '',
             activePage: 1
         }
-        this.delete = this.delete.bind(this);
-
-        // console.log("clients", this.props);
     }
-    delete(e) {
+
+    deleteClient = (e) => {
         let el = e.target;
         let row = el.closest('tr');
         var i = row.rowIndex;
@@ -30,42 +30,42 @@ class Clientdata extends Component {
             .then(() => console.log(this.state.message))
             .catch(err => console.log(err));
     }
-    alert=() =>{
-        return(
-            <p><strong>{this.state.message}</strong></p>
-        )
-    };
-    handlePageChange (pageNumber) {
-        console.log(`active page is ${pageNumber}`);
-        this.setState({activePage: pageNumber});
-    }
+
+    // alert = () => {
+    //     return (
+    //         <p><strong>{this.state.message}</strong></p>
+    //     )
+    // };
+
+    // handlePageChange(pageNumber) {
+    //     console.log(`active page is ${pageNumber}`);
+    //     this.setState({ activePage: pageNumber });
+    // }
+
     render() {
+        let { obj } = this.props
+        console.log(obj);
+
         // console.log(this.props.obj.id);
-        
+
         return (
+            < tr >
+                <td> {obj.cl_name}</td>
+                <td>{obj.address}</td>
+                <td>{obj.email}</td>
+                <td>{obj.number}</td>
+                <td>{obj.company}</td>
+                <td><Link to={"/edit/" + obj.id} >
+                    <button className="btn btn-primary btn-sm">
+                        <i className="fas fa-edit" />
+                    </button>
+                </Link>
+                    |<MDBBtn size="sm" color="danger" onClick={this.deleteClient}>
+                        <i className="fas fa-trash" />
+                    </MDBBtn>
+                </td>
+            </tr >
 
-            <MDBTableBody>
-
-                <tr>
-                    <td> {this.props.obj.cl_name}</td>
-                    <td>{this.props.obj.address}</td>
-                    <td>{this.props.obj.email}</td>
-                    <td>{this.props.obj.number}</td>
-                    <td>{this.props.obj.company}</td>
-                    <td><Link to={"/edit/" + this.props.obj.id} >
-                        <button className="btn btn-primary btn-sm">
-                            <i className="fas fa-edit">
-                            </i>
-                        </button>
-                    </Link>
-                        |<MDBBtn size="sm" color="danger" onClick={this.delete}>
-                            <i className="fas fa-trash">
-                            </i>
-                        </MDBBtn>
-                    </td>
-                </tr>
-
-            </MDBTableBody>
 
         )
     }

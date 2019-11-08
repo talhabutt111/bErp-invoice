@@ -10,10 +10,10 @@
 //         this.onChangeNumber = this.onChangeNumber.bind(this);
 //         this.onChangeCompany = this.onChangeCompany.bind(this);
 //         this.onSubmit = this.onSubmit.bind(this);
-//
+
 //     }
 //     onChangePersonName(e) {
-//
+
 //         this.setState({
 //             name: e.target.value
 //         });
@@ -39,7 +39,7 @@
 //         })
 //     }
 //     componentDidMount() {
-//
+
 //         axios.get('http://localhost:5000/brp/clients/' + this.props.match.params.id)
 //             .then(response => {
 //                 let client = response.data.shift()
@@ -56,7 +56,7 @@
 //                 console.log(error);
 //             })
 //     }
-//
+
 //     onSubmit(e) {
 //         e.preventDefault();
 //         const obj = {
@@ -67,16 +67,16 @@
 //         };
 //         axios.put('http://localhost:5000/brp/updateclient/' + this.props.match.params.id, obj)
 //             .then(res => console.log(res.data));
-//
+
 //         this.props.history.push('/client');
 //         window.location.reload()
 //     }
-//
-//
+
+
 //     render() {
 //         // console.log(this.state);
-//
-//
+
+
 //         return (
 //             <div className="container">
 //                 <div className="m-4">
@@ -87,7 +87,7 @@
 //                                 <MDBCardHeader tag="h3" style={{ backgroundColor: "#9ACD32", color: "white" }} className="text-center font-weight-bold text-uppercase py-4">
 //                                     Edit Invoice
 //                                 </MDBCardHeader>
-//
+
 //                                 <MDBCardBody>
 //                                     <form onSubmit={this.onSubmit}>
 //                                         <div className="container-fluid" style={{ borderStyle: "groove", borderRadius: "10px" }}>
@@ -122,7 +122,7 @@
 //                                                               onChange={this.onChangeNumber}
 //                                                     /><br />
 //                                                 </div>
-//
+
 //                                             </div>
 //                                         </div>
 //                                         <div className="row">
@@ -131,18 +131,18 @@
 //                                                 <input type="submit" value="Register Client" className="btn btn-primary" />
 //                                             </div>
 //                                         </div>
-//
+
 //                                     </form>
 //                                 </MDBCardBody>
 //                             </MDBCard>
-//
+
 //                         </div>
 //                     </div>
-//
+
 //                 </div>
 //             </div>
 //         )
 //     }
-//
+
 // }
 // export default editInvoice;

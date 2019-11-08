@@ -89,7 +89,7 @@ router.delete('/deleteclient/:id', (req, res) => {
 router.get('/invoices', (req, res) => {
 
     Invoice.findAll({
-        attributes: ['id', 'c_name', 'c_address', 'date', 'c_number', 'services', 'items', 'total_amount', 'slagme','qty','price', 'created_at']
+        attributes: ['id', 'c_name', 'c_address', 'date', 'c_number', 'services', 'total_amount', 'slagme', 'created_at']
     })
         .then(invoices => res.json({ succces: true, invoices: invoices }))
         .catch(err => console.log(err));

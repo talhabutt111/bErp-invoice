@@ -2,23 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="993e0459-6c50-4a7f-bd09-d3e9fcf4c300" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/clientside/src/aidan-hancock-UeqEo3EFBhE-unsplash.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/src/components/404error.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/src/components/images/404 error.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/src/components/images/404-Pages-1112x556.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clientside/src/components/images/404-page_ipop2d.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/generate.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/generate.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/images/aidan-hancock-UeqEo3EFBhE-unsplash.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/invoices.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/invoices.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/invoicesdata.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/invoicesdata.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/components/items_details.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/items_details.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clientside/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverside/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverside/config/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverside/models/invoices.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverside/models/invoices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientside/src/components/Generate.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/clientside/src/components/Generate.jsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +107,7 @@
       <workItem from="1573119275225" duration="4714000" />
       <workItem from="1573208608702" duration="2045000" />
       <workItem from="1573275893069" duration="742000" />
-      <workItem from="1573276849799" duration="4689000" />
+      <workItem from="1573276849799" duration="6254000" />
     </task>
     <servers />
   </component>

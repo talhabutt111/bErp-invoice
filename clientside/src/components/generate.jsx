@@ -91,7 +91,7 @@ class Generate extends Component {
                                     .then((canvas) => {
                                         const imgData = canvas.toDataURL('image/png');
                                         const pdf = new jsPDF();
-                                        pdf.addImage(imgData, 'PNG', 3, 12, 207, 190);
+                                        pdf.addImage(imgData, 'PNG', 3, 12, 207, 100);
                                         pdf.save("invoice.pdf");
                                     });
                             }
@@ -254,9 +254,9 @@ class Generate extends Component {
         // console.log('re-render');
 
         let {total, description, qty, price, date, invoice_id, selectedClient, clients, phone, address, printInvoice} = this.state;
-        let companyDetailStyle = {fontSize: '0.8rem'}
+        let companyDetailStyle = {fontSize: '0.8rem'};
         let clientOptions = clients && clients.map((cl) => <option key={cl.id} value={cl.id}>{cl.cl_name}</option>)
-        let tableRows = []
+        let tableRows = [];
         this.state.item.map((item, index) => {
             tableRows.push(
                 <tr key={index} className='text-center'>

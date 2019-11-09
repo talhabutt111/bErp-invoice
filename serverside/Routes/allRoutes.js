@@ -115,11 +115,6 @@ router.get('/invoices/:id', (req, res) => {
 });
 //Create New Invoice
 router.post('/invoice', (req, res) => {
-    Invoice.destroy({
-        where:{
-            slagme: req.body.slagme
-        }
-    });
 
     const invoices = {
         slagme: req.body.slagme,
@@ -127,17 +122,12 @@ router.post('/invoice', (req, res) => {
         c_address: req.body.address,
         c_number: req.body.number,
         date: req.body.date,
-        services: req.body.services,
-        items: req.body.description,
         total_amount: req.body.total_amount,
-
     };
 
     Invoice.create(invoices)
         .then((invoices) => {
-            console.log(invoices);
-
-            res.json({ success: true, data: invoices, message: 'invoices has been created successfully' })
+            res.json({ error: false, data: invoices, message: 'invoices has been created successfully' })
         })
         .catch(err => console.log(err))
 });
@@ -150,26 +140,24 @@ router.delete('/deleteinvoice/:id', (req, res) => {
                 id: req.params.id
             }
         }).then((data) =>
-            res.json({ success: true, ourData: data, message: 'Client has been deleted successfully' }
+            res.json({ error: false, ourData: data, message: 'Client has been deleted successfully' }
 
             ))
         .catch(err => console.log(err));
 
 });
-//Update Invoices Invoices
 
+//Update Invoices
 router.put('/updateinvoice/:id', (req, res) => {
 
     const invoice_id = req.params.id;
     Invoice.update(
         {
-            c_name: req.body.cl_name,
+            c_name: req.body.name,
             c_address: req.body.address,
             c_number: req.body.number,
-            services: req.body.services,
-            items: req.body.items,
-            quantity: req.body.quantity,
-            total_amount: req.body.total
+            date: req.body.date,
+            total_amount: req.body.total_amount,
         },
         {
             where:
@@ -198,8 +186,7 @@ router.get('/oneitemdata/:slagme', (req, res) => {
     Item.findAll({
         where: {
             invoice_id: invoice_id
-        },
-        attributes: ['services', 'detail', 'qty', 'price']
+        }
     })
         .then(items => res.send(items))
         .catch(err => console.log(err));

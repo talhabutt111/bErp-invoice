@@ -2,7 +2,6 @@ body {
     font-family: "Lato", sans-serif;
 }
 
-
 .sidenav {
     margin-right: 100px;
     position: fixed;
@@ -23,25 +22,33 @@ body {
     color: #064579;
 }
 
-
-
 @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav Link {font-size: 18px;}
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav Link {
+        font-size: 18px;
+    }
 }
-body {
 
+body {
     background: url('aidan-hancock-UeqEo3EFBhE-unsplash.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-
-
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@media print {
+    .printHide {
+        display: none !important;
+    }
+    #capture {
+        margin: 0px !important;
+    }
 }

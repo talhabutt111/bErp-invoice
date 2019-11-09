@@ -22,7 +22,7 @@ function App() {
   return (
     <Router>
 
-      <div className="sidenav">
+      <div className="sidenav printHide">
         <MDBDropdown>
           <MDBDropdownToggle
             caret
@@ -42,20 +42,22 @@ function App() {
         <MDBIcon icon="cash-register" />   <Link to="/services">Services</Link><br /><br />
         <MDBIcon icon="building" /> <Link to="/company">Company</Link><br /><br />
       </div>
-      <Switch>
-        <Route path="/" exact component={GenerateInvoice}/>
-        <Route path="/generate" component={GenerateInvoice} />
-        <Route path="/client" component={Client} />
-        <Route path="/invoices" component={Invoices} />
-        <Route path="/services" component={Services} />
-        <Route path="/company" component={Company} />
-        <Route path='/edit/:id' component={editClient} />
-        <Route path='/editinvoice/:id' component={EditInvoice} />
-        <Route path='/itemsdetail/:slagme' component={ItemsDetail} />
-        <Route path="/addClient" component={addClient} />
-        <Route  component={Error} />
+      <div className='m-0 p-0 main'>
+        <Switch>
+          <Route path="/" exact component={GenerateInvoice} />
+          <Route path="/generate" component={GenerateInvoice} />
+          <Route path="/client" component={Client} />
+          <Route path="/invoices" component={Invoices} />
+          <Route path="/services" component={Services} />
+          <Route path="/company" component={Company} />
+          <Route path='/edit/:id' component={editClient} />
+          <Route path='/editinvoice/:id' component={EditInvoice} />
+          <Route path='/itemsdetail/:slagme' component={ItemsDetail} />
+          <Route path="/addClient" component={addClient} />
+          <Route component={Error} />
 
-      </Switch>
+        </Switch>
+      </div>
 
 
     </Router>

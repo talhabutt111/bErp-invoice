@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBIcon,} from 'mdbreact';
+import React, { Component } from "react";
+import { MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBIcon, } from 'mdbreact';
 import invoice from './images/devZone-Logo.png';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -8,10 +8,10 @@ import axios from 'axios';
 // const mydate = today.toDateString();
 // const id = Math.floor((Math.random() * 200000) + 1);
 const servicesOptions = [
-    {value: 'seo', label: 'SEO'},
-    {value: 'web development', label: 'WEB DEVELOPMENT'},
-    {value: 'graphic designing', label: 'Graphics Designing'},
-    {value: 'mobile apps', label: 'Mobile Apps'}
+    { value: 'seo', label: 'SEO' },
+    { value: 'web development', label: 'WEB DEVELOPMENT' },
+    { value: 'graphic designing', label: 'Graphics Designing' },
+    { value: 'mobile apps', label: 'Mobile Apps' }
 ];
 
 
@@ -40,23 +40,60 @@ class Generate extends Component {
     }
 
     cleararray = () => {
-        this.setState({item: []});
+        this.setState({ item: [] });
+    }
+
+    makeStateEmpty = () => {
+        console.log('emptying2');
+
+        this.setState({
+            invoice_id: Math.floor((Math.random() * 200000) + 1),
+            selectedClient: '',
+            address: '',
+            phone: '',
+            item: [],
+            services: '',
+            description: '',
+            qty: '',
+            price: '',
+            message: '',
+        })
+    }
+
+    printInvoice = () => {
+        if (this.state.printInvoice) {
+            const printArea = document.getElementById('capture').innerHTML;
+            const wholeContent = document.body.innerHTML;
+            document.body.innerHTML = printArea;
+            window.print();
+            document.body.innerHTML = wholeContent;
+
+            // html2canvas(printArea)
+            //     .then((canvas) => {
+            //         const imgData = canvas.toDataURL('image/png');
+            //         const pdf = new jsPDF();
+            //         pdf.addImage(imgData, 'PNG', 3, 12, 207, 100);
+            //         pdf.save("invoice.pdf");
+            //     });
+        }
+        setTimeout(() => {
+            console.log('emptying');
+            this.makeStateEmpty()
+        }, 1500)
     }
 
     submitInvoice = () => {
-        let {item, total} = this.state
+        let { item } = this.state, total = this.total_amount.value
         // e.preventDefault();
         let form = this.selectClientForm;
         if (form.checkValidity() === false) {
             form.classList.add('was-validated');
         } else if (item.length === 0) {
-            this.setState({message: 'No Invoice Data !'})
+            this.setState({ message: 'No Invoice Data !' })
             return
-        } else if (total === 0) {
-            this.setState({message: 'Please calculate first !'})
-            return
-        } else {
-            let {invoice_id, selectedClient, address, phone, date, total, printInvoice} = this.state
+        }
+        else {
+            let { invoice_id, selectedClient, address, phone, date } = this.state
             const obj = {
                 slagme: invoice_id,
                 name: selectedClient,
@@ -65,62 +102,61 @@ class Generate extends Component {
                 date: date,
                 total_amount: total,
             };
-            axios.post('http://localhost:5000/brp/invoice', obj)
-                .then(res => {
-                    this.setState({message: res.data.message});
-                    // console.log(res.data);
-                    axios.post('http://localhost:5000/brp/itemsdata', item)
-                        .then(res => {
-                            // console.log(res)
-                            this.setState({
-                                item: [],
-                                address: '',
-                                phone: '',
-                                services: '',
-                                total: 0,
-                                selectedClient: '',
-                                description: '',
-                                qty: '',
-                                price: '',
-                                message: '',
-                            })
-                            this.selectClientForm.classList.remove('was-validated')
-                            // if (printInvoice) {
-                            //     const input = document.getElementById('capture');
-                            //     html2canvas(input)
-                            //         .then((canvas) => {
-                            //             const imgData = canvas.toDataURL('image/png');
-                            //             const pdf = new jsPDF();
-                            //             pdf.addImage(imgData, 'PNG', 3, 12, 207, 100);
-                            //             pdf.save("invoice.pdf");
-                            //         });
-                            // }
-                        })
-                        .catch(error => console.log(error))
-                })
-                .catch(err => {
-                    console.log(err)
-                });
-        }
-    };
-print=()=>{
-    if (!this.state.total){
-        this.setState({message: 'Please calculate total first then take print !'})
-        return
-    }
-    else{
-        const input = document.getElementById('capture');
-        html2canvas(input)
-            .then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF();
-                pdf.addImage(imgData, 'PNG', 5, 12, 207, 100);
-                pdf.save("invoice.pdf");
-            });
+            if (!this.editingInvoiceId) {
+                console.log('here');
+                console.log(obj);
+
+                axios.post('http://localhost:5000/brp/invoice', obj)
+                    .then(res => {
+                        console.log(res.data);
+                        if (!res.data.error) {
+                            this.setState({ message: res.data.message });
+                            axios.post('http://localhost:5000/brp/itemsdata', item)
+                                .then(res => {
+                                    // console.log(res.data)
+                                    this.setState({ message: res.data.message });
+                                    if (!res.data.error) {
+                                        this.selectClientForm.classList.remove('was-validated')
+                                        this.printInvoice()
+                                    }
+                                })
+                                .catch(error => console.log(error))
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    });
+            }
+            else {
+                axios.put(`http://localhost:5000/brp/updateinvoice/${this.editingInvoiceId}`, obj)
+                    .then((res) => {
+                        // console.log(res.data);
+                        if (!res.data.error) {
+                            this.setState({ message: res.data.message });
+                            axios.delete(`http://localhost:5000/brp/deleteitemsdata/${invoice_id}`)
+                                .then((res) => {
+                                    // console.log(res.data);
+                                    this.setState({ message: res.data.message });
+                                    if (!res.data.error) {
+                                        axios.post('http://localhost:5000/brp/itemsdata', item)
+                                            .then(res => {
+                                                // console.log(res.data);
+                                                this.setState({ message: res.data.message });
+                                                if (!res.data.error) {
+                                                    this.selectClientForm.classList.remove('was-validated')
+                                                    this.printInvoice()
+                                                }
+                                            })
+                                    }
+                                })
+                                .catch(err => console.log(err))
+                        }
+                    })
+                    .catch(err => console.log(err))
+            }
+        };
     }
 
-
-};
     componentDidMount = () => {
         fetch("http://localhost:5000/brp/clients")
             .then((response) => {
@@ -128,12 +164,12 @@ print=()=>{
             })
             .then(data => {
                 // console.log(data);
-                this.setState({clients: data}, () => {
+                this.setState({ clients: data }, () => {
 
                 });
             }).catch(error => {
-            console.log(error);
-        });
+                console.log(error);
+            });
 
         if (this.editingInvoiceId) {
             axios.get('http://localhost:5000/brp/invoices/' + this.props.id)
@@ -158,14 +194,13 @@ print=()=>{
                                         }
                                     )
                                 })
-                                this.setState({item})
+                                this.setState({ item })
                                 editingInvoice && this.setState({
                                     date: new Date(editingInvoice.date).toDateString(),
                                     invoice_id: editingInvoice.slagme,
                                     selectedClient: editingInvoice.c_name,
                                     address: editingInvoice.c_address,
                                     phone: editingInvoice.c_number,
-                                    total: editingInvoice.total_amount,
                                 });
                             }
                         })
@@ -191,12 +226,9 @@ print=()=>{
     }
 
     calculateTotal = () => {
-        let table = document.getElementById('invoiceTable'),
-            total = 0;
-        for (let index = 1; index < table.rows.length; index++) {
-            total += Number(table.rows[index].cells[3].innerHTML)
-        }
-        this.setState({total: total})
+        let total = 0;
+        this.state.item.length !== 0 && this.state.item.forEach(item => total += Number(item.price))
+        return total
     };
 
     onChangeClient = (e) => {
@@ -227,7 +259,7 @@ print=()=>{
             this.addItemForm.classList.add('was-validated')
             return
         } else {
-            let {invoice_id, description, qty, price, services} = this.state
+            let { invoice_id, description, qty, price, services } = this.state
             let newitem = {
                 invoice_id: invoice_id,
                 services: services,
@@ -252,14 +284,13 @@ print=()=>{
         this.setState({
             item: [
                 ...this.state.item.slice(0, index),
-                Object.assign({}, this.state.item[index], {[name]: el.innerHTML}),
+                Object.assign({}, this.state.item[index], { [name]: el.innerHTML }),
                 ...this.state.item.slice(index + 1)
             ]
         });
     }
 
     deleteItemData = Index => (e) => {
-        let el = e.target, rowIndex = el.closest('tr').rowIndex
         this.setState(prevState => ({
             item: prevState.item.filter((itemData, index) => {
                 return index !== Index
@@ -269,10 +300,8 @@ print=()=>{
 
 
     render() {
-        // console.log('re-render');
-
-        let {total, description, qty, price, date, invoice_id, selectedClient, clients, phone, address, printInvoice} = this.state;
-        let companyDetailStyle = {fontSize: '0.8rem'};
+        let { description, qty, price, date, invoice_id, selectedClient, clients, phone, address, printInvoice } = this.state;
+        let companyDetailStyle = { fontSize: '0.8rem' };
         let clientOptions = clients && clients.map((cl) => <option key={cl.id} value={cl.id}>{cl.cl_name}</option>)
         let tableRows = [];
         this.state.item.map((item, index) => {
@@ -302,9 +331,9 @@ print=()=>{
                     >
                         {item.price}
                     </td>
-                    <td>
-                        <MDBBtn size="sm" color="transparent" onClick={this.deleteItemData(index)}>
-                            <i className="fas fa-trash"/>
+                    <td className='printHide'>
+                        <MDBBtn size="sm" color="danger" onClick={this.deleteItemData(index)}>
+                            <i className="fas fa-trash" />
                         </MDBBtn>
                     </td>
                 </tr>
@@ -315,58 +344,59 @@ print=()=>{
         return (
             <div className="container-fluid">
                 <div className="row m-4">
-                    <div className="col-sm-11 offset-sm-1">
-                        <MDBCard id="capture">
+                    <div className="col-sm-11 offset-sm-1" id="capture">
+                        {/* <div className="col-sm-12 ml-5" id="capture"> */}
+                        <MDBCard>
                             <MDBCardBody>
-                                <h2 className="text-center"
-                                    style={{backgroundColor: "#9ACD32", color: "white"}}>INVOICE</h2>
+                                <h2 className="text-center invoiceHeader"
+                                    style={{ backgroundColor: "#9ACD32", color: "white" }}>INVOICE</h2>
                                 <div className="row m-0 p-0">
-                                    <div className="col-sm-3 align-self-center m-0 p-0">
-                                        <MDBInput label="Date" disabled value={date}/>
-                                        <MDBInput label="Id" disabled value={invoice_id}/>
+                                    <div className="col-sm-3 align-self-center mb-0 mt-4 p-0">
+                                        <MDBInput label="Date" className='m-0' disabled value={date} />
+                                        <MDBInput label="Id" className='m-0' disabled value={invoice_id} />
                                     </div>
                                     <div className="col-sm-6 align-self-center m-0 p-0">
-                                        <img src={invoice} width="100%" height="auto"/> <br/>
+                                        <img src={invoice} width="100%" height="auto" /> <br />
                                     </div>
-                                    <div className="col-md-3 m-0 p-0 align-self-center">
-                                        <MDBCard className='m-0 p-0'>
-                                            <MDBCardBody className='m-0 py-2'>
-                                                <div className='row'>
-                                                    <div className='col-2 text-center  m-0 p-0'>
-                                                        <i className='fa fa-mobile-alt'/>
+                                    <div className="col-md-3 mb-0 mt-4 p-0 align-self-center">
+                                        {/* <MDBCard className='m-0 p-0'> */}
+                                        {/* <MDBCardBody className='m-0 py-2'> */}
+                                        <div className='row mb-2'>
+                                            <div className='col-2 text-center  m-0 p-0'>
+                                                <i className='fa fa-mobile-alt' />
+                                            </div>
+                                            <div className='col-10 m-0 p-0 text-left'
+                                                style={companyDetailStyle}>
+                                                +92 306 5619198
                                                     </div>
-                                                    <div className='col-10 m-0 p-0 text-left'
-                                                         style={companyDetailStyle}>
-                                                        +92 306 5619198
+                                        </div>
+                                        <div className='row mb-2'>
+                                            <div className='col-2 text-center  m-0 py-0 pr-0 pl-0'>
+                                                <i className='fa fa-envelope' />
+                                            </div>
+                                            <div className='col-10 m-0 p-0 text-left'
+                                                style={companyDetailStyle}>
+                                                contact@devzone.com.pk
                                                     </div>
-                                                </div>
-                                                <div className='row'>
-                                                    <div className='col-2 text-center  m-0 py-0 pr-0 pl-0'>
-                                                        <i className='fa fa-envelope'/>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col-2 text-center  m-0 p-0'>
+                                                <i className='fa fa-map-marker-alt' />
+                                            </div>
+                                            <div className='col-10 m-0 p-0 text-left'
+                                                style={companyDetailStyle}>
+                                                42-5-A2 Township, Lahore, Pakistan
                                                     </div>
-                                                    <div className='col-10 m-0 p-0 text-left'
-                                                         style={companyDetailStyle}>
-                                                        contact@devzone.com.pk
-                                                    </div>
-                                                </div>
-                                                <div className='row'>
-                                                    <div className='col-2 text-center  m-0 p-0'>
-                                                        <i className='fa fa-map-marker-alt'/>
-                                                    </div>
-                                                    <div className='col-10 m-0 p-0 text-left'
-                                                         style={companyDetailStyle}>
-                                                        42-5-A2 Township, Lahore, Pakistan
-                                                    </div>
-                                                </div>
-                                            </MDBCardBody>
-                                        </MDBCard>
+                                        </div>
+                                        {/* </MDBCardBody> */}
+                                        {/* </MDBCard> */}
                                     </div>
                                 </div>
                                 {this.alertmessage()}
                                 <form ref={el => this.selectClientForm = el} noValidate>
                                     <div className="row">
                                         <div className="col-sm-4">
-                                            <br/>
+                                            <br />
                                             <select
                                                 value={selectedClient}
                                                 // defaultValue={'Select Client/..'}
@@ -393,17 +423,17 @@ print=()=>{
                                                 label="Phone"
                                                 value={phone}
                                                 disabled
-                                                required/>
+                                                required />
                                         </div>
                                     </div>
                                 </form>
                                 <div className="container-fluid m-0 p-0"
-                                     style={{borderStyle: "groove", borderRadius: "10px"}}>
-                                    <form onSubmit={this.addItem} className=' p-0' ref={ref => this.addItemForm = ref}
-                                          noValidate>
+                                    style={{ borderStyle: "groove", borderRadius: "10px" }}>
+                                    <form onSubmit={this.addItem} className='p-0 printHide' ref={ref => this.addItemForm = ref}
+                                        noValidate>
                                         <div className="row px-2 m-0">
                                             <div className="col-md-4 m-0">
-                                                <br/>
+                                                <br />
                                                 <select
                                                     className="form-control mt-1"
                                                     onChange={this.onChange('services')}
@@ -452,93 +482,81 @@ print=()=>{
                                                     color="transparent"
                                                     className='mb-2'
                                                 >
-                                                    <MDBIcon icon="plus"/>
+                                                    <MDBIcon icon="plus" />
                                                 </button>
                                             </div>
                                         </div>
                                     </form>
-                                    <div className="row px-2 m-0"
-                                         style={{display: this.state.item.length === 0 ? 'none' : ''}}>
-                                        <div className="col-md-8 m-0">
+                                    <div className="row px-2 mx-0 mt-4"
+                                        style={{ display: this.state.item.length === 0 ? 'none' : '' }}>
+                                        <div className="col-md-12 m-0">
                                             <div className='m-0 p-0 table-responsive'>
                                                 <table id='invoiceTable'
-                                                       className="table table-bordered table-hover table-sm">
+                                                    className="table table-bordered table-hover table-sm">
                                                     <thead className='thead-light text-center'>
-                                                    <tr>
-                                                        <th>Services</th>
-                                                        <th>Description</th>
-                                                        <th>Qty.</th>
-                                                        <th>Price</th>
-                                                        <th>Action</th>
-                                                    </tr>
+                                                        <tr style={{ borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }}>
+                                                            <th >Services</th>
+                                                            <th>Description</th>
+                                                            <th>Qty.</th>
+                                                            <th>Price</th>
+                                                            <th className='printHide'>Action</th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {tableRows}
+                                                        {tableRows}
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="row px-2 m-0"
-                                         style={{display: this.state.item.length === 0 ? 'none' : ''}}>
-                                        <div className="col-sm-8 align-self-center">
-                                            <MDBBtn
-                                                color="transparent"
-                                                onClick={this.calculateTotal}
-                                                className='m-0'
-                                            >
-                                                Calculate
-                                            </MDBBtn>
-                                            <MDBBtn
-                                                onClick={this.cleararray}
-                                                color="transparent"
-                                            >
-                                                <MDBIcon icon="broom"/>
-                                            </MDBBtn>
-                                        </div>
-                                        <div className='col-sm-4'>
-                                            <MDBInput label='Total' outline value={total}/>
+                                    <div className="row px-2 m-0" style={{ display: this.state.item.length === 0 ? 'none' : '' }}>
+                                        <div className='col-md-4 offset-md-8'>
+                                            <MDBInput label='Total' outline ref={el => this.total_amount = el} value={this.calculateTotal()} />
                                         </div>
                                     </div>
                                 </div>
                                 <p></p>
 
+                                <div className="row m-0 p-2 justify-content-center printHide">
+                                    <div className="col-md-2 align-self-center p-0">
+                                        {/* <div className='row m-0 p-0'>
+                                            <div className='col m-0 p-0 text-right'>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={printInvoice}
+                                                    onChange={() => {
+                                                        this.setState({
+                                                            printInvoice: !this.state.printInvoice
+                                                        })
+                                                    }}
+                                                    style={{ width: '30px', height: '30px', verticalAlign: 'middle' }}
+                                                />
+                                            </div>
+                                            <div className='col text-left m-0 p-0 align-self-center'>
+                                                <p className='m-0 p-0'>Save PDF ?</p>
+                                            </div>
+                                        </div> */}
+                                    </div>
+                                        To print invoice, press ctrl+p before saving.
+                                    <div className="col-md-3 align-self-center py-0 px-2">
+                                        <MDBBtn
+                                            color="success"
+                                            onClick={this.submitInvoice}
+                                            size="md"
+                                            className='form-control my-0 mx-2 py-2'
+                                        >
+                                            <MDBIcon
+                                                icon="save"
+                                                size="lg"
+                                                className='mr-1'
+                                            />
+                                            Save Record
+                                        </MDBBtn>
+                                    </div>
+                                </div>
                             </MDBCardBody>
                         </MDBCard>
-                        <div className="row m-0 px-2 justify-content-center">
-                            {/*<div className="col-md-2 text-right P-0">*/}
-                            {/*    <input*/}
-                            {/*        type="checkbox"*/}
-                            {/*        checked={printInvoice}*/}
-                            {/*        onChange={() => {*/}
-                            {/*            this.setState({*/}
-                            {/*                printInvoice: !this.state.printInvoice*/}
-                            {/*            })*/}
-                            {/*        }}*/}
-                            {/*        className='mt-2 mr-0 w-75 h-75'*/}
-                            {/*    />*/}
-                            {/*</div>*/}
-                            <button className="btn btn-sm btn-blue-grey" onClick={this.print}><MDBIcon icon="file-pdf"  size="lg"
-                                                                                                       className='mr-1'/> <strong>convert to pdf</strong></button>
-                            {/*<div className='col-md-2 align-self-center'>*/}
-                            {/*    Save PDF ?*/}
-                            {/*</div>*/}
-                            <div className="col-md-3 p-0">
-                                <MDBBtn
-                                    color="success"
-                                    onClick={this.submitInvoice}
-                                    size="md"
-                                >
-                                    <MDBIcon
-                                        icon="save"
-                                        size="lg"
-                                        className='mr-1'
-                                    />
-                                    Save Record
-                                </MDBBtn>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

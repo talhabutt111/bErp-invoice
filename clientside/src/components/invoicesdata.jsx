@@ -37,7 +37,9 @@ class Inovicesdata extends Component {
 
     render() {
         // console.log(this.props)
-        let { obj } = this.props
+        let { obj } = this.props;
+        let date= obj.date;
+        let newdate=new Date(date).toDateString()
         return (
             <MDBTableBody>
                 <tr>
@@ -45,8 +47,7 @@ class Inovicesdata extends Component {
                     <td>{obj.c_name}</td>
                     <td>{obj.c_address}</td>
                     <td>{obj.c_number}</td>
-                    <td>{obj.date}</td>
-                    <td>{obj.services}</td>
+                    <td>{newdate}</td>
                     <td>{obj.total_amount}</td>
                     <td>
                         <Link to={"/itemsdetail/" + obj.slagme}>
@@ -58,10 +59,10 @@ class Inovicesdata extends Component {
                                     View Items Detail
                                 </div>
                             </MDBTooltip>
-                        </Link>
+                        </Link>|
                         <Link to={"/editinvoice/" + obj.id}>
-                            <MDBBtn color={'warning'} size="sm">edit</MDBBtn>
-                        </Link>
+                            <MDBBtn color={'warning'} size="sm"><MDBIcon icon="edit" /></MDBBtn>
+                        </Link>|
                         <MDBBtn size="sm" color="danger" onClick={this.delete}>
                             <i className="fas fa-trash">
                             </i>

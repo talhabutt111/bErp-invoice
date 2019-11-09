@@ -12,7 +12,7 @@ const invoicesSchema={
 const configs = { paranoid: true, underscored: true, };
 const Invoices=db.define('Invoice', invoicesSchema, configs);
 Invoices.sync(
-//    { force: true }
+   // { force: true }
 )
     .then(() => {
         // console.log('invoices is ready')

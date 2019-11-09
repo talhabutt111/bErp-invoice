@@ -51,11 +51,10 @@ class Invoices extends Component {
                                         <MDBTableHead>
                                             <tr>
                                                 <th>Invoice_no</th>
-                                                <th>C-Name</th>
+                                                <th>C-Id</th>
                                                 <th>C-Address</th>
                                                 <th>C-Phone no</th>
-                                                <th>invoice_date</th>
-                                                <th>Services</th>
+                                                <th>Generation_date</th>
                                                 <th>Total Amount</th>
                                                 <th>Actions</th>
                                             </tr>

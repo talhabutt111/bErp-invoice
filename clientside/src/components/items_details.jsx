@@ -46,6 +46,7 @@ class ItemsDetail extends Component {
                                 <MDBTable responsive striped hover bordered>
                                     <MDBTableHead>
                                         <tr>
+                                            <th>Services</th>
                                             <th>Item_detail</th>
                                             <th>Qunatity</th>
                                             <th>price</th>
@@ -58,6 +59,7 @@ class ItemsDetail extends Component {
                                             this.state.item.map((items, i) => {
                                                 return (
                                                     <tr key={i}>
+                                                        <td>{items.services}</td>
                                                         <td>{items.detail}</td>
                                                         <td>{items.qty}</td>
                                                         <td>{items.price}</td>

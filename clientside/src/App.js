@@ -15,6 +15,7 @@ import addClient from "./components/Addclient";
 import editClient from "./components/editClient";
 import EditInvoice from "./components/EditInvoice ";
 import ItemsDetail from "./components/items_details";
+import Error from "./components/404error";
 
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
         <MDBIcon icon="building" /> <Link to="/company">Company</Link><br /><br />
       </div>
       <Switch>
-
+        <Route path="/" exact component={addClient}/>
         <Route path="/generate" component={GenerateInvoice} />
         <Route path="/client" component={Client} />
         <Route path="/invoices" component={Invoices} />
@@ -52,6 +53,8 @@ function App() {
         <Route path='/editinvoice/:id' component={EditInvoice} />
         <Route path='/itemsdetail/:slagme' component={ItemsDetail} />
         <Route path="/addClient" component={addClient} />
+        <Route  component={Error} />
+
       </Switch>
 
 

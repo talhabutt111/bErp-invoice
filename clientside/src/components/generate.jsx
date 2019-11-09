@@ -85,16 +85,16 @@ class Generate extends Component {
                                 message: '',
                             })
                             this.selectClientForm.classList.remove('was-validated')
-                            if (printInvoice) {
-                                const input = document.getElementById('capture');
-                                html2canvas(input)
-                                    .then((canvas) => {
-                                        const imgData = canvas.toDataURL('image/png');
-                                        const pdf = new jsPDF();
-                                        pdf.addImage(imgData, 'PNG', 3, 12, 207, 100);
-                                        pdf.save("invoice.pdf");
-                                    });
-                            }
+                            // if (printInvoice) {
+                            //     const input = document.getElementById('capture');
+                            //     html2canvas(input)
+                            //         .then((canvas) => {
+                            //             const imgData = canvas.toDataURL('image/png');
+                            //             const pdf = new jsPDF();
+                            //             pdf.addImage(imgData, 'PNG', 3, 12, 207, 100);
+                            //             pdf.save("invoice.pdf");
+                            //         });
+                            // }
                         })
                         .catch(error => console.log(error))
                 })
@@ -103,7 +103,24 @@ class Generate extends Component {
                 });
         }
     };
+print=()=>{
+    if (!this.state.total){
+        this.setState({message: 'Please calculate total first then take print !'})
+        return
+    }
+    else{
+        const input = document.getElementById('capture');
+        html2canvas(input)
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF();
+                pdf.addImage(imgData, 'PNG', 5, 12, 207, 100);
+                pdf.save("invoice.pdf");
+            });
+    }
 
+
+};
     componentDidMount = () => {
         fetch("http://localhost:5000/brp/clients")
             .then((response) => {
@@ -112,7 +129,7 @@ class Generate extends Component {
             .then(data => {
                 // console.log(data);
                 this.setState({clients: data}, () => {
-                    // console.log(this.state.clients)
+
                 });
             }).catch(error => {
             console.log(error);
@@ -174,7 +191,8 @@ class Generate extends Component {
     }
 
     calculateTotal = () => {
-        let table = document.getElementById('invoiceTable'), total = 0
+        let table = document.getElementById('invoiceTable'),
+            total = 0;
         for (let index = 1; index < table.rows.length; index++) {
             total += Number(table.rows[index].cells[3].innerHTML)
         }
@@ -285,7 +303,7 @@ class Generate extends Component {
                         {item.price}
                     </td>
                     <td>
-                        <MDBBtn size="sm" color="danger" onClick={this.deleteItemData(index)}>
+                        <MDBBtn size="sm" color="transparent" onClick={this.deleteItemData(index)}>
                             <i className="fas fa-trash"/>
                         </MDBBtn>
                     </td>
@@ -489,21 +507,23 @@ class Generate extends Component {
                             </MDBCardBody>
                         </MDBCard>
                         <div className="row m-0 px-2 justify-content-center">
-                            <div className="col-md-2 text-right P-0">
-                                <input
-                                    type="checkbox"
-                                    checked={printInvoice}
-                                    onChange={() => {
-                                        this.setState({
-                                            printInvoice: !this.state.printInvoice
-                                        })
-                                    }}
-                                    className='mt-2 mr-0 w-75 h-75'
-                                />
-                            </div>
-                            <div className='col-md-2 align-self-center'>
-                                Save PDF ?
-                            </div>
+                            {/*<div className="col-md-2 text-right P-0">*/}
+                            {/*    <input*/}
+                            {/*        type="checkbox"*/}
+                            {/*        checked={printInvoice}*/}
+                            {/*        onChange={() => {*/}
+                            {/*            this.setState({*/}
+                            {/*                printInvoice: !this.state.printInvoice*/}
+                            {/*            })*/}
+                            {/*        }}*/}
+                            {/*        className='mt-2 mr-0 w-75 h-75'*/}
+                            {/*    />*/}
+                            {/*</div>*/}
+                            <button className="btn btn-sm btn-blue-grey" onClick={this.print}><MDBIcon icon="file-pdf"  size="lg"
+                                                                                                       className='mr-1'/> <strong>convert to pdf</strong></button>
+                            {/*<div className='col-md-2 align-self-center'>*/}
+                            {/*    Save PDF ?*/}
+                            {/*</div>*/}
                             <div className="col-md-3 p-0">
                                 <MDBBtn
                                     color="success"

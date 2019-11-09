@@ -43,7 +43,7 @@ function App() {
         <MDBIcon icon="building" /> <Link to="/company">Company</Link><br /><br />
       </div>
       <Switch>
-        <Route path="/" exact component={addClient}/>
+        <Route path="/" exact component={GenerateInvoice}/>
         <Route path="/generate" component={GenerateInvoice} />
         <Route path="/client" component={Client} />
         <Route path="/invoices" component={Invoices} />

@@ -10,10 +10,9 @@ class Client extends Component {
         super(props);
         this.state = {
             clients: [],
-            activePage: 15
         }
     }
-    //fetching clients data using axiosApi
+    //fetching clients data using axios
     componentDidMount() {
         axios.get('http://localhost:5000/brp/clients')
             .then(response => {

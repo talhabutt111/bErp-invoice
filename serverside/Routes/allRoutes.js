@@ -115,6 +115,11 @@ router.get('/invoices/:id', (req, res) => {
 });
 //Create New Invoice
 router.post('/invoice', (req, res) => {
+    Invoice.destroy({
+        where:{
+            slagme: req.body.slagme
+        }
+    });
 
     const invoices = {
         slagme: req.body.slagme,

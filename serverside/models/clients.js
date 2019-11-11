@@ -1,17 +1,17 @@
-const Sequelize=require('sequelize');
-const db=require('../config/config');
+const Sequelize = require('sequelize');
+const db = require('../config/config');
 
-const clientSchema={
-    cl_name:Sequelize.STRING,
-    email:Sequelize.STRING,
-    address:Sequelize.STRING,
-    number:Sequelize.STRING,
-    company:Sequelize.STRING,
+const clientSchema = {
+    cl_name: Sequelize.STRING,
+    email: Sequelize.STRING,
+    address: Sequelize.STRING,
+    number: Sequelize.STRING,
+    company: Sequelize.STRING,
 }
 const configs = { paranoid: true, underscored: true, }
-const Client=db.define('client', clientSchema, configs);
-Client.sync(
-   //  { force: true }
+const Clients = db.define('clients', clientSchema, configs);
+Clients.sync(
+    //  { force: true }
 )
     .then(() => {
         // console.log('Client is ready')
@@ -19,7 +19,7 @@ Client.sync(
     .catch((err) => {
         console.log(err)
     });
-module.exports =Client;
+module.exports = Clients;
 
 
 

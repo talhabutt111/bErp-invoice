@@ -1,5 +1,5 @@
-const Sequelize=require('sequelize');
-module.exports = new Sequelize('berpinvoice', 'asas', 'asas1234', {
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('berpinvoice', 'asas', 'asas1234', {
     host: 'localhost',
     dialect: 'mysql',
     pool: {
@@ -9,3 +9,6 @@ module.exports = new Sequelize('berpinvoice', 'asas', 'asas1234', {
     },
     logging: false
 });
+
+sequelize.authenticate().then(() => console.log("database is connected")).catch(err => console.log(err));
+module.exports = sequelize

@@ -1,25 +1,31 @@
-const express=require("express");
+const express = require("express");
 var cors = require('cors');
-var app=express();
+// var app = express();
+var server = express();
 var bodyParser = require('body-parser');
-var DB=require('./config/config');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+// const router = express.Router();
+
+
+
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({
     extended: true
 }));
-var mysql = require('mysql');
-var port=5000;
-app.use(cors());
+var port = 5000;
+server.use(cors());
 
-DB.authenticate().then(() =>console.log("database is connected")).catch(err =>console.log(err));
-
-app.get('/', (req,res) => {
+server.get('/', (req, res) => {
     res.send("Welcome to the BRP_Invoices system");
 });
-app.use('/brp',require('./Routes/allRoutes'));
+
+
+
+// app.use('/brp', require('./Routes/allRoutes'));
+require('./Routes/route-clients')(server)
+require('./Routes/route-invoiceDetails')(server)
+require('./Routes/route-invoices')(server)
 
 
 
 
-
-app.listen(port,()  =>{ console.log('server is runing on port',port);});
+server.listen(port, () => { console.log('server is runing on port', port); });

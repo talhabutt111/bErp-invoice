@@ -5,7 +5,6 @@ module.exports = (server) => {
 
     //Get All Invoices
     server.get('/getAllInvoices', (req, res) => {
-
         Invoices.findAll()
             .then(invoices => res.json({ success: true, data: invoices }))
             .catch(err => res.json({ success: false, err: err }));
@@ -14,22 +13,20 @@ module.exports = (server) => {
     //Get one Invoice
     server.get('/getSpecificInvoice/:id', (req, res) => {
         const invoice_id = req.params.id;
-        if (!invoice_id) {
-            console.log("invoice id is null ");
-        } else {
-            console.log("invoice id is ", invoice_id);
-        }
+        // if (!invoice_id) {
+        //     console.log("invoice id is null ");
+        // } else {
+        //     console.log("invoice id is ", invoice_id);
+        // }
         Invoices.findAll({
             where: {
                 id: invoice_id
             },
         })
             .then(invoice => {
-                console.log(invoice);
-                
+                // console.log(invoice);
                 res.json({ success: true, data: invoice })
-            }
-            )
+            })
             .catch(err => res.json({ success: false, err: err }));
     });
 
